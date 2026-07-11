@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gikunju Creates | Modern Web Design & Development</title>
+    <meta name="description" content="Portfolio of Gikunju - Developer, Designer, and Tech Enthusiast specializing in Web Development, AI, and Cybersecurity.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#050B14',
+                            blue: '#1A56DB',
+                            lightBlue: '#3B82F6',
+                            accent: '#60A5FA',
+                            silver: '#E2E8F0'
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Theme Initialization to prevent FOUC -->
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body {
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        
+        /* 3D Canvas Background */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none; /* Let clicks pass through */
+        }
+
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050B14; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1A56DB; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3B82F6; 
+        }
+
+        /* Glowing Text Effect */
+        .text-glow {
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+        
+        /* Loading Screen */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #f8fafc;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-out;
+        }
+        .dark #loader {
+            background: #050B14;
+        }
+        .loader-ring {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50%;
+            border-top-color: #3B82F6;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-lightBlue selection:text-white bg-slate-50 text-slate-900 dark:bg-brand-dark dark:text-[#E2E8F0] transition-colors duration-500">
+
+    <!-- Loader -->
+    <div id="loader">
+        <div class="loader-ring"></div>
+    </div>
+
+    <!-- 3D Background Canvas -->
+    <div id="canvas-container"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 border-b border-transparent" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <img class="h-12 w-auto rounded-lg border border-brand-lightBlue/30 shadow-[0_0_15px_rgba(59,130,246,0.3)] group-hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] transition-all duration-300" src="Image/logo.jpg" alt="Gikunju Creates Logo">
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-8">
+                        <a href="#home" class="text-slate-600 dark:text-gray-300 hover:text-brand-blue dark:hover:text-brand-lightBlue transition-colors px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="#about" class="text-slate-600 dark:text-gray-300 hover:text-brand-blue dark:hover:text-brand-lightBlue transition-colors px-3 py-2 rounded-md text-sm font-medium">Who is Gikunju?</a>
+                        <a href="#services" class="text-slate-600 dark:text-gray-300 hover:text-brand-blue dark:hover:text-brand-lightBlue transition-colors px-3 py-2 rounded-md text-sm font-medium">Services</a>
+                        <a href="#portfolio" class="text-slate-600 dark:text-gray-300 hover:text-brand-blue dark:hover:text-brand-lightBlue transition-colors px-3 py-2 rounded-md text-sm font-medium">Portfolio</a>
+                        <a href="#contact" class="bg-brand-blue hover:bg-brand-lightBlue text-white transition-all px-5 py-2.5 rounded-full text-sm font-medium shadow-[0_0_15px_rgba(26,86,219,0.4)] hover:-translate-y-0.5">Let's Talk</a>
+                        
+                        <!-- Theme Toggle Desktop -->
+                        <button id="theme-toggle-desktop" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-white/10 transition-colors text-slate-600 dark:text-gray-300 ml-2">
+                            <i class="ph-fill ph-moon text-xl dark:hidden"></i>
+                            <i class="ph-fill ph-sun text-xl hidden dark:block"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile menu buttons -->
+                <div class="-mr-2 flex items-center gap-3 md:hidden">
+                    <!-- Theme Toggle Mobile -->
+                    <button id="theme-toggle-mobile" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-white/10 transition-colors text-slate-600 dark:text-gray-300">
+                        <i class="ph-fill ph-moon text-xl dark:hidden"></i>
+                        <i class="ph-fill ph-sun text-xl hidden dark:block"></i>
+                    </button>
+                    <button type="button" id="mobile-menu-btn" class="inline-flex items-center justify-center p-2 rounded-md text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 focus:outline-none">
+                        <i class="ph ph-list text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-white/95 dark:bg-[#050B14]/95 backdrop-blur-lg border-t border-slate-200 dark:border-white/10 shadow-xl absolute w-full" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-slate-800 dark:text-white hover:text-brand-blue dark:hover:text-brand-lightBlue hover:bg-slate-100 dark:hover:bg-white/5">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-slate-800 dark:text-white hover:text-brand-blue dark:hover:text-brand-lightBlue hover:bg-slate-100 dark:hover:bg-white/5">About</a>
+                <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-slate-800 dark:text-white hover:text-brand-blue dark:hover:text-brand-lightBlue hover:bg-slate-100 dark:hover:bg-white/5">Services</a>
+                <a href="#portfolio" class="block px-3 py-2 rounded-md text-base font-medium text-slate-800 dark:text-white hover:text-brand-blue dark:hover:text-brand-lightBlue hover:bg-slate-100 dark:hover:bg-white/5">Portfolio</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="gsap-hero-text">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel bg-white/60 dark:bg-white/5 mb-6 border border-brand-blue/20 dark:border-brand-lightBlue/30 text-brand-blue dark:text-brand-lightBlue text-sm font-semibold tracking-wide shadow-sm dark:shadow-none">
+                        <i class="ph ph-sparkle-fill"></i>
+                        WEB DESIGN THAT CONNECTS
+                    </div>
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-tight mb-6 text-slate-900 dark:text-white">
+                        We Build <br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-cyan-500 dark:from-brand-lightBlue dark:to-cyan-400 text-glow">Digital Experiences</span><br/>
+                        That Inspire.
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-600 dark:text-gray-400 mb-8 max-w-xl">
+                        Creative Design. Smart Code. Real Impact. Gikunju Creates high-performing websites that help your brand stand out and grow.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#portfolio" class="bg-brand-blue hover:bg-brand-lightBlue transition-all text-white px-8 py-4 rounded-full font-medium flex items-center gap-2 shadow-[0_0_20px_rgba(26,86,219,0.4)] hover:-translate-y-1">
+                            View My Work <i class="ph ph-arrow-right"></i>
+                        </a>
+                        <a href="#about" class="glass-panel bg-white/60 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 transition-all text-slate-800 dark:text-white px-8 py-4 rounded-full font-medium flex items-center gap-2 border border-slate-200 dark:border-white/10 hover:-translate-y-1">
+                            Who is Gikunju?
+                        </a>
+                    </div>
+                    
+                    <!-- Stats / Trust Indicators -->
+                    <div class="mt-12 grid grid-cols-3 gap-6 border-t border-slate-200 dark:border-white/10 pt-8">
+                        <div>
+                            <h4 class="text-2xl font-bold text-slate-900 dark:text-white">5+</h4>
+                            <p class="text-sm text-slate-500 dark:text-gray-400">Projects Delivered</p>
+                        </div>
+                        <div>
+                            <h4 class="text-2xl font-bold text-slate-900 dark:text-white">100%</h4>
+                            <p class="text-sm text-slate-500 dark:text-gray-400">Client Satisfaction</p>
+                        </div>
+                        <div>
+                            <h4 class="text-2xl font-bold text-slate-900 dark:text-white">24/7</h4>
+                            <p class="text-sm text-slate-500 dark:text-gray-400">System Support</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hero Image / Mockup -->
+                <div class="gsap-hero-img relative perspective-1000">
+                    <div class="absolute inset-0 bg-gradient-radial from-brand-blue/20 dark:from-brand-lightBlue/20 to-transparent blur-3xl -z-10"></div>
+                    <img src="Image/img2.jpg" alt="Gikunju Creates Portfolio Displays" class="rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10 transform transition-transform duration-700 hover:scale-[1.02] hover:rotate-y-[-5deg]">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 relative z-10 bg-white/80 dark:bg-brand-dark/80 backdrop-blur-md border-y border-slate-200 dark:border-white/5 transition-colors duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 gsap-fade-up">
+                <h2 class="text-brand-blue dark:text-brand-lightBlue font-semibold tracking-wider uppercase text-sm mb-2">The Mind Behind The Code</h2>
+                <h3 class="text-4xl md:text-5xl font-display font-bold text-slate-900 dark:text-white">Who is Gikunju?</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-12 items-stretch">
+                <!-- Personal Photo (New Addition) -->
+                <div class="lg:col-span-4 gsap-fade-up">
+                    <div class="relative group h-full">
+                        <div class="absolute -inset-2 bg-gradient-to-r from-brand-blue to-cyan-400 rounded-2xl blur-lg opacity-20 group-hover:opacity-60 transition duration-500"></div>
+                        <div class="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 h-full min-h-[350px]">
+                            <!-- Update this placeholder with your actual photo URL -->
+                            <img src="Image/photo1.png" alt="Gikunju - Developer & Designer" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <h4 class="text-white font-bold text-xl">Gikunju Peter</h4>
+                                <p class="text-brand-lightBlue text-sm">Tech Enthusiast & Innovator</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bio & Education -->
+                <div class="lg:col-span-8 space-y-6 gsap-fade-up delay-100">
+                    <div class="glass-panel p-8 rounded-2xl relative overflow-hidden bg-white/60 dark:bg-white/5 border border-slate-200 dark:border-white/5 shadow-lg dark:shadow-none h-full flex flex-col justify-between">
+                        <div>
+                            <div class="absolute top-0 right-0 w-64 h-64 bg-brand-blue/10 dark:bg-brand-blue/20 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
+                            <h4 class="text-2xl font-bold mb-4 flex items-center gap-3 text-slate-900 dark:text-white">
+                                <i class="ph-fill ph-student text-brand-blue dark:text-brand-lightBlue text-3xl"></i>
+                                Education & Background
+                            </h4>
+                            <p class="text-slate-600 dark:text-gray-300 leading-relaxed mb-4 text-lg">
+                                I am a passionate and dedicated technologist currently pursuing a <strong>Bachelor's degree in Mathematics and Computer Science</strong> at <strong>Kenya Methodist University</strong>. My foundation in mathematics gives me a unique analytical edge when solving complex programmatic and logical problems.
+                            </p>
+                            <p class="text-slate-600 dark:text-gray-300 leading-relaxed mb-8">
+                                Beyond standard web development, my interests span across the latest frontiers of technology. I am actively deepening my knowledge in Machine Learning, AI, and Cybersecurity (especially Kali Linux network defense), building systems that are not only beautiful and functional, but smart and highly secure.
+                            </p>
+                        </div>
+
+                        <!-- Skills Matrix embedded here to utilize space -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-auto">
+                            <div class="glass-panel p-6 rounded-xl bg-white/80 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-brand-blue dark:hover:border-brand-lightBlue/50 transition-colors">
+                                <i class="ph-fill ph-code-block text-brand-blue dark:text-brand-lightBlue text-3xl mb-3"></i>
+                                <h5 class="font-bold mb-1 text-slate-900 dark:text-white">Development</h5>
+                                <p class="text-sm text-slate-500 dark:text-gray-400">Python, SQL, HTML/CSS/JS, Tailwind, React, Modern UI/UX</p>
+                            </div>
+                            <div class="glass-panel p-6 rounded-xl bg-white/80 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-brand-blue dark:hover:border-brand-lightBlue/50 transition-colors">
+                                <i class="ph-fill ph-shield-check text-brand-blue dark:text-brand-lightBlue text-3xl mb-3"></i>
+                                <h5 class="font-bold mb-1 text-slate-900 dark:text-white">Cybersecurity</h5>
+                                <p class="text-sm text-slate-500 dark:text-gray-400">Advanced concepts, Kali Linux & Network defense exploration.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certificates Timeline -->
+            <div class="gsap-fade-up delay-200">
+                <div class="glass-panel p-8 rounded-2xl bg-white/60 dark:bg-white/5 border border-slate-200 dark:border-white/5 shadow-lg dark:shadow-none">
+                    <h4 class="text-2xl font-bold mb-8 flex items-center justify-center md:justify-start gap-3 text-slate-900 dark:text-white">
+                        <i class="ph-fill ph-certificate text-brand-blue dark:text-brand-lightBlue text-3xl"></i>
+                        Certifications & Milestones
+                    </h4>
+                    
+                    <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-brand-blue/30 dark:before:via-white/20 before:to-transparent">
+                        
+                        <!-- Cert Item -->
+                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active hover:-translate-y-1 transition-transform">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full border border-brand-blue dark:border-brand-lightBlue bg-white dark:bg-brand-dark shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                                <i class="ph-fill ph-brain text-brand-blue dark:text-brand-lightBlue text-xl"></i>
+                            </div>
+                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-panel p-5 rounded-xl border border-brand-blue/30 bg-blue-50/50 dark:bg-white/5 shadow-md dark:shadow-none">
+                                <div class="flex items-center justify-between mb-1">
+                                    <div class="font-bold text-slate-900 dark:text-white text-lg">Machine Learning & AI</div>
+                                </div>
+                                <div class="text-sm font-medium text-brand-blue dark:text-brand-accent">Continuing / Pursuing</div>
+                            </div>
+                        </div>
+
+                        <!-- Cert Item -->
+                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group hover:-translate-y-1 transition-transform">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full border border-slate-300 dark:border-white/20 bg-white dark:bg-brand-dark shadow-sm shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 group-hover:border-brand-blue dark:group-hover:border-brand-lightBlue transition-colors z-10">
+                                <i class="ph-fill ph-shield text-slate-400 group-hover:text-brand-blue dark:group-hover:text-brand-lightBlue text-xl transition-colors"></i>
+                            </div>
+                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-panel p-5 rounded-xl border border-slate-200 dark:border-white/5 bg-white/80 dark:bg-white/5 shadow-sm dark:shadow-none group-hover:border-brand-blue/30 transition-colors">
+                                <div class="flex items-center justify-between mb-1">
+                                    <div class="font-bold text-slate-900 dark:text-white text-lg">Cybersecurity</div>
+                                </div>
+                                <div class="text-sm text-slate-500 dark:text-gray-400">Continuing / Pursuing</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Cert Item -->
+                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group hover:-translate-y-1 transition-transform">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full border border-slate-300 dark:border-white/20 bg-white dark:bg-brand-dark shadow-sm shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 group-hover:border-brand-blue dark:group-hover:border-brand-lightBlue transition-colors z-10">
+                                <i class="ph-fill ph-database text-slate-400 group-hover:text-brand-blue dark:group-hover:text-brand-lightBlue text-xl transition-colors"></i>
+                            </div>
+                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-panel p-5 rounded-xl border border-slate-200 dark:border-white/5 bg-white/80 dark:bg-white/5 shadow-sm dark:shadow-none group-hover:border-brand-blue/30 transition-colors">
+                                <div class="flex items-center justify-between mb-1">
+                                    <div class="font-bold text-slate-900 dark:text-white text-lg">SQL & Python</div>
+                                </div>
+                                <div class="text-sm text-slate-500 dark:text-gray-400">Completed</div>
+                            </div>
+                        </div>
+
+                        <!-- Cert Item -->
+                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group hover:-translate-y-1 transition-transform">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full border border-slate-300 dark:border-white/20 bg-white dark:bg-brand-dark shadow-sm shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 group-hover:border-brand-blue dark:group-hover:border-brand-lightBlue transition-colors z-10">
+                                <i class="ph-fill ph-microsoft-excel-logo text-slate-400 group-hover:text-brand-blue dark:group-hover:text-brand-lightBlue text-xl transition-colors"></i>
+                            </div>
+                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-panel p-5 rounded-xl border border-slate-200 dark:border-white/5 bg-white/80 dark:bg-white/5 shadow-sm dark:shadow-none group-hover:border-brand-blue/30 transition-colors">
+                                <div class="flex items-center justify-between mb-1">
+                                    <div class="font-bold text-slate-900 dark:text-white text-sm sm:text-lg">Advanced Excel & Google Workspace</div>
+                                </div>
+                                <div class="text-sm text-slate-500 dark:text-gray-400">Completed</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 relative z-10 bg-slate-50/50 dark:bg-transparent transition-colors duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 gsap-fade-up">
+                <h2 class="text-brand-blue dark:text-brand-lightBlue font-semibold tracking-wider uppercase text-sm mb-2">What I Offer</h2>
+                <h3 class="text-4xl md:text-5xl font-display font-bold mb-4 text-slate-900 dark:text-white">Modern Solutions. <br/>Real Results.</h3>
+                <p class="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">I design high-performing systems that help your brand stand out and grow, leveraging modern stacks and intelligent algorithms.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service 1 -->
+                <div class="glass-panel p-8 rounded-2xl bg-white/80 dark:bg-white/5 hover:-translate-y-2 transition-transform duration-300 border border-slate-200 dark:border-transparent dark:border-t-brand-lightBlue/30 hover:border-brand-blue/50 shadow-lg dark:shadow-none gsap-stagger-item">
+                    <div class="w-14 h-14 bg-blue-100 dark:bg-brand-blue/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="ph ph-desktop text-3xl text-brand-blue dark:text-brand-lightBlue"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Modern Designs</h4>
+                    <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed">Crafting beautiful, responsive, and intuitive interfaces that engage users and elevate your brand identity.</p>
+                </div>
+                <!-- Service 2 -->
+                <div class="glass-panel p-8 rounded-2xl bg-white/80 dark:bg-white/5 hover:-translate-y-2 transition-transform duration-300 border border-slate-200 dark:border-transparent dark:border-t-brand-lightBlue/30 hover:border-brand-blue/50 shadow-lg dark:shadow-none gsap-stagger-item">
+                    <div class="w-14 h-14 bg-blue-100 dark:bg-brand-blue/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="ph ph-device-mobile text-3xl text-brand-blue dark:text-brand-lightBlue"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Mobile Friendly</h4>
+                    <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed">Ensuring flawless performance and adaptive layouts across all devices, from large monitors to smartphones.</p>
+                </div>
+                <!-- Service 3 -->
+                <div class="glass-panel p-8 rounded-2xl bg-white/80 dark:bg-white/5 hover:-translate-y-2 transition-transform duration-300 border border-slate-200 dark:border-transparent dark:border-t-brand-lightBlue/30 hover:border-brand-blue/50 shadow-lg dark:shadow-none gsap-stagger-item">
+                    <div class="w-14 h-14 bg-blue-100 dark:bg-brand-blue/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="ph ph-rocket-launch text-3xl text-brand-blue dark:text-brand-lightBlue"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Fast Loading</h4>
+                    <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed">Optimized code architecture and asset management for lightning-fast speeds and top-tier core web vitals.</p>
+                </div>
+                <!-- Service 4 -->
+                <div class="glass-panel p-8 rounded-2xl bg-white/80 dark:bg-white/5 hover:-translate-y-2 transition-transform duration-300 border border-slate-200 dark:border-transparent dark:border-t-brand-lightBlue/30 hover:border-brand-blue/50 shadow-lg dark:shadow-none gsap-stagger-item">
+                    <div class="w-14 h-14 bg-blue-100 dark:bg-brand-blue/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="ph ph-trend-up text-3xl text-brand-blue dark:text-brand-lightBlue"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">SEO Optimized</h4>
+                    <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed">Built with search engines in mind, driving organic traffic and improving your visibility on the web.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-24 relative z-10 bg-slate-100/50 dark:bg-black/40 border-t border-slate-200 dark:border-white/5 transition-colors duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gsap-fade-up">
+                <div>
+                    <h2 class="text-brand-blue dark:text-brand-lightBlue font-semibold tracking-wider uppercase text-sm mb-2">My Work</h2>
+                    <h3 class="text-4xl md:text-5xl font-display font-bold text-slate-900 dark:text-white">Featured Projects</h3>
+                </div>
+                <p class="text-slate-600 dark:text-gray-400 max-w-md mt-4 md:mt-0">A curated showcase of production-ready applications and portfolios tailored to specific client needs.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project 1 -->
+                <div class="group cursor-pointer gsap-stagger-item bg-white dark:bg-transparent rounded-2xl p-2 md:p-0 shadow-lg dark:shadow-none border border-slate-200 dark:border-transparent hover:border-brand-blue/30 transition-all">
+                    <div class="relative overflow-hidden rounded-2xl mb-4">
+                        <div class="absolute inset-0 bg-brand-blue/10 dark:bg-brand-blue/20 group-hover:bg-transparent transition-colors z-10"></div>
+                        <!-- Placeholder using Placehold.co as fallback -->
+                        <img src="https://placehold.co/800x600/0f172a/3B82F6?text=Production+Ready+Site+1" alt="Client Website" class="w-full h-64 object-cover transform transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute bottom-4 left-4 z-20 flex gap-2">
+                            <span class="bg-white/90 dark:bg-black/70 backdrop-blur-sm text-slate-900 dark:text-white text-xs px-3 py-1 rounded-full border border-slate-200 dark:border-white/10 shadow-sm">Client Work</span>
+                            <span class="bg-brand-blue/90 dark:bg-brand-blue/80 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full shadow-sm">Live</span>
+                        </div>
+                    </div>
+                    <div class="px-2 pb-4 md:px-0 md:pb-0">
+                        <h4 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white group-hover:text-brand-blue dark:group-hover:text-brand-lightBlue transition-colors">Corporate Business Platform</h4>
+                        <p class="text-slate-600 dark:text-gray-400 text-sm">One of the two production-ready websites built for individual clients, featuring secure auth and data visualization.</p>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="group cursor-pointer gsap-stagger-item bg-white dark:bg-transparent rounded-2xl p-2 md:p-0 shadow-lg dark:shadow-none border border-slate-200 dark:border-transparent hover:border-brand-blue/30 transition-all">
+                    <div class="relative overflow-hidden rounded-2xl mb-4">
+                        <div class="absolute inset-0 bg-brand-blue/10 dark:bg-brand-blue/20 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="https://placehold.co/800x600/0f172a/60A5FA?text=Personal+Portfolios" alt="Portfolio Generator" class="w-full h-64 object-cover transform transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute bottom-4 left-4 z-20 flex gap-2">
+                            <span class="bg-white/90 dark:bg-black/70 backdrop-blur-sm text-slate-900 dark:text-white text-xs px-3 py-1 rounded-full border border-slate-200 dark:border-white/10 shadow-sm">3 Projects</span>
+                        </div>
+                    </div>
+                    <div class="px-2 pb-4 md:px-0 md:pb-0">
+                        <h4 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white group-hover:text-brand-blue dark:group-hover:text-brand-lightBlue transition-colors">Creative Professional Portfolios</h4>
+                        <p class="text-slate-600 dark:text-gray-400 text-sm">Custom portfolio solutions designed and deployed for three different individuals across creative fields.</p>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="group cursor-pointer gsap-stagger-item bg-white dark:bg-transparent rounded-2xl p-2 md:p-0 shadow-lg dark:shadow-none border border-slate-200 dark:border-transparent hover:border-brand-blue/30 transition-all">
+                    <div class="relative overflow-hidden rounded-2xl mb-4">
+                        <div class="absolute inset-0 bg-brand-blue/10 dark:bg-brand-blue/20 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="Image/logo.jpg" alt="Gikunju Creates" class="w-full h-64 object-cover transform transition-transform duration-700 group-hover:scale-110 object-top border border-slate-200 dark:border-transparent">
+                        <div class="absolute bottom-4 left-4 z-20 flex gap-2">
+                            <span class="bg-white/90 dark:bg-black/70 backdrop-blur-sm text-slate-900 dark:text-white text-xs px-3 py-1 rounded-full border border-slate-200 dark:border-white/10 shadow-sm">Internal</span>
+                            <span class="bg-brand-blue/90 dark:bg-brand-blue/80 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full shadow-sm">Gikunju Creates</span>
+                        </div>
+                    </div>
+                    <div class="px-2 pb-4 md:px-0 md:pb-0">
+                        <h4 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white group-hover:text-brand-blue dark:group-hover:text-brand-lightBlue transition-colors">Personal Brand Platform</h4>
+                        <p class="text-slate-600 dark:text-gray-400 text-sm">The very architecture you are experiencing now. Built with 3D animations, optimized UI, and tailored for performance.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / Contact Section -->
+    <section id="contact" class="py-24 relative z-10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center gsap-fade-up">
+            <i class="ph-duotone ph-chat-teardrop-text text-5xl text-brand-blue dark:text-brand-lightBlue mb-6 inline-block"></i>
+            <h2 class="text-4xl md:text-5xl font-display font-bold mb-6 text-slate-900 dark:text-white">Let's build something <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-cyan-500 dark:from-brand-lightBlue dark:to-cyan-400 text-glow">amazing</span> together.</h2>
+            <p class="text-xl text-slate-600 dark:text-gray-400 mb-10">Whether it's a website, an AI integration, or a secure network setup, I'm ready to bring your vision to life.</p>
+            
+            <a href="https://wa.me/16039991267?text=Hello%20Gikunju!%20I%20would%20like%20to%20start%20a%20conversation%20about%20a%20project." target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 bg-brand-blue dark:bg-white text-white dark:text-brand-dark hover:bg-blue-700 dark:hover:bg-gray-200 transition-all px-8 py-4 rounded-full text-lg font-bold shadow-xl shadow-brand-blue/30 dark:shadow-white/10 hover:-translate-y-1">
+                <i class="ph-bold ph-whatsapp-logo text-2xl"></i> Start a Conversation
+            </a>
+        </div>
+    </section>
+
+    <footer class="border-t border-slate-200 dark:border-white/10 bg-slate-100/80 dark:bg-black/50 backdrop-blur-md relative z-10 pt-12 pb-8 transition-colors duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center gap-3 mb-6 md:mb-0">
+                    <img src="Image/logo.jpg" alt="Logo" class="h-10 w-auto rounded object-cover border border-slate-300 dark:border-white/10 shadow-sm">
+                    <span class="font-display font-bold text-xl tracking-wide text-slate-900 dark:text-white">GIKUNJU CREATES</span>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-slate-500 dark:text-gray-400 hover:text-brand-blue dark:hover:text-white transition-colors"><i class="ph-fill ph-github-logo text-2xl"></i></a>
+                    <a href="#" class="text-slate-500 dark:text-gray-400 hover:text-brand-blue dark:hover:text-brand-lightBlue transition-colors"><i class="ph-fill ph-linkedin-logo text-2xl"></i></a>
+                    <!-- Direct WhatsApp link in footer as well -->
+                    <a href="https://wa.me/16039991267" target="_blank" rel="noopener noreferrer" class="text-slate-500 dark:text-gray-400 hover:text-[#25D366] transition-colors"><i class="ph-fill ph-whatsapp-logo text-2xl"></i></a>
+                </div>
+            </div>
+            <div class="mt-8 text-center text-sm text-slate-500 dark:text-gray-500">
+                &copy; <span id="year"></span> Gikunju Creates. All rights reserved. <br> Mathematics & Computer Science | KEMU.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Theme Toggle Logic
+        const themeToggleDesktop = document.getElementById('theme-toggle-desktop');
+        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+        
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+                updateThreeJSColors(false);
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+                updateThreeJSColors(true);
+            }
+        }
+        
+        themeToggleDesktop.addEventListener('click', toggleTheme);
+        themeToggleMobile.addEventListener('click', toggleTheme);
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // --- Three.js "Cyber-Node / Neural Network" Background ---
+        
+        // Global references to ThreeJS materials so we can update them on theme toggle
+        window.threeApp = {
+            scene: null,
+            particlesMaterial: null,
+            lineMaterial: null
+        };
+
+        function updateThreeJSColors(isDark) {
+            if (!window.threeApp.scene) return;
+            
+            // Fog Color update
+            window.threeApp.scene.fog.color.setHex(isDark ? 0x050B14 : 0xf8fafc);
+            
+            // Particles color update
+            if(window.threeApp.particlesMaterial) {
+                window.threeApp.particlesMaterial.color.setHex(isDark ? 0x3B82F6 : 0x1A56DB);
+            }
+            
+            // Lines color and opacity update
+            if(window.threeApp.lineMaterial) {
+                window.threeApp.lineMaterial.color.setHex(isDark ? 0x1A56DB : 0x60A5FA);
+                window.threeApp.lineMaterial.opacity = isDark ? 0.15 : 0.08;
+            }
+        }
+
+        const initThreeJS = () => {
+            const container = document.getElementById('canvas-container');
+            const scene = new THREE.Scene();
+            window.threeApp.scene = scene;
+            
+            const isDark = document.documentElement.classList.contains('dark');
+
+            // Fog to fade out particles in the distance
+            scene.fog = new THREE.FogExp2(isDark ? 0x050B14 : 0xf8fafc, 0.001);
+
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 2000);
+            camera.position.z = 400;
+
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            // Create particles
+            const particleCount = 200; // Optimal for performance and looks
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const velocities = [];
+
+            const spread = 1200;
+            for (let i = 0; i < particleCount; i++) {
+                positions[i * 3] = (Math.random() - 0.5) * spread; // x
+                positions[i * 3 + 1] = (Math.random() - 0.5) * spread; // y
+                positions[i * 3 + 2] = (Math.random() - 0.5) * spread; // z
+
+                velocities.push({
+                    x: (Math.random() - 0.5) * 0.5,
+                    y: (Math.random() - 0.5) * 0.5,
+                    z: (Math.random() - 0.5) * 0.5
+                });
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+            // Custom glowing particle material
+            const material = new THREE.PointsMaterial({
+                color: isDark ? 0x3B82F6 : 0x1A56DB,
+                size: 3,
+                transparent: true,
+                opacity: 0.8,
+                sizeAttenuation: true
+            });
+            window.threeApp.particlesMaterial = material;
+
+            const particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+
+            // Connect nearby particles with lines to form a network
+            const lineMaterial = new THREE.LineBasicMaterial({
+                color: isDark ? 0x1A56DB : 0x60A5FA,
+                transparent: true,
+                opacity: isDark ? 0.15 : 0.08
+            });
+            window.threeApp.lineMaterial = lineMaterial;
+
+            // We need a separate geometry for lines. We'll rebuild this every frame.
+            let linesMesh;
+
+            // Mouse interaction
+            let mouseX = 0;
+            let mouseY = 0;
+            let targetX = 0;
+            let targetY = 0;
+            
+            const windowHalfX = window.innerWidth / 2;
+            const windowHalfY = window.innerHeight / 2;
+
+            document.addEventListener('mousemove', (event) => {
+                mouseX = (event.clientX - windowHalfX) * 0.05;
+                mouseY = (event.clientY - windowHalfY) * 0.05;
+            });
+
+            // Animation Loop
+            const animate = () => {
+                requestAnimationFrame(animate);
+
+                // Smooth camera movement based on mouse
+                targetX = mouseX * 0.5;
+                targetY = mouseY * 0.5;
+                camera.position.x += (targetX - camera.position.x) * 0.02;
+                camera.position.y += (-targetY - camera.position.y) * 0.02;
+                camera.lookAt(scene.position);
+
+                // Move particles
+                const positionsAttr = geometry.attributes.position;
+                const posArray = positionsAttr.array;
+
+                // Line connection logic (O(N^2) but N=200 so it's fast enough)
+                const linePositions = [];
+                
+                for (let i = 0; i < particleCount; i++) {
+                    // Update positions based on velocities
+                    posArray[i * 3] += velocities[i].x;
+                    posArray[i * 3 + 1] += velocities[i].y;
+                    posArray[i * 3 + 2] += velocities[i].z;
+
+                    // Bounce off bounds
+                    if (Math.abs(posArray[i * 3]) > spread/2) velocities[i].x *= -1;
+                    if (Math.abs(posArray[i * 3 + 1]) > spread/2) velocities[i].y *= -1;
+                    if (Math.abs(posArray[i * 3 + 2]) > spread/2) velocities[i].z *= -1;
+
+                    // Check distance for line connections
+                    for(let j = i + 1; j < particleCount; j++) {
+                        const dx = posArray[i*3] - posArray[j*3];
+                        const dy = posArray[i*3+1] - posArray[j*3+1];
+                        const dz = posArray[i*3+2] - posArray[j*3+2];
+                        const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+                        
+                        if (dist < 120) { // Connection threshold distance
+                            linePositions.push(
+                                posArray[i*3], posArray[i*3+1], posArray[i*3+2],
+                                posArray[j*3], posArray[j*3+1], posArray[j*3+2]
+                            );
+                        }
+                    }
+                }
+                
+                positionsAttr.needsUpdate = true;
+                
+                // Update Lines
+                if (linesMesh) scene.remove(linesMesh);
+                
+                if (linePositions.length > 0) {
+                    const lineGeo = new THREE.BufferGeometry();
+                    lineGeo.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+                    linesMesh = new THREE.LineSegments(lineGeo, lineMaterial);
+                    scene.add(linesMesh);
+                }
+
+                // Slow rotation of entire system for effect
+                particles.rotation.y += 0.001;
+                if(linesMesh) linesMesh.rotation.y += 0.001;
+
+                renderer.render(scene, camera);
+            };
+
+            animate();
+
+            // Resize handler
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        };
+
+        // --- GSAP Scroll Animations ---
+        const initGSAP = () => {
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Navbar blur effect on scroll
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    nav.classList.add('bg-white/90', 'dark:bg-brand-dark/80', 'backdrop-blur-md', 'shadow-lg', 'dark:border-white/10');
+                    nav.classList.remove('border-transparent');
+                } else {
+                    nav.classList.remove('bg-white/90', 'dark:bg-brand-dark/80', 'backdrop-blur-md', 'shadow-lg', 'dark:border-white/10');
+                    nav.classList.add('border-transparent');
+                }
+            });
+
+            // Hero Animations
+            gsap.from(".gsap-hero-text > *", {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out",
+                delay: 0.5
+            });
+
+            gsap.from(".gsap-hero-img", {
+                x: 100,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                delay: 0.8
+            });
+
+            // General Fade Up Elements
+            gsap.utils.toArray('.gsap-fade-up').forEach(element => {
+                gsap.from(element, {
+                    scrollTrigger: {
+                        trigger: element,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 40,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "power2.out"
+                });
+            });
+
+            // Staggered Grids (Services & Portfolio)
+            const staggerSections = ['#services', '#portfolio'];
+            staggerSections.forEach(selector => {
+                gsap.from(`${selector} .gsap-stagger-item`, {
+                    scrollTrigger: {
+                        trigger: selector,
+                        start: "top 75%",
+                    },
+                    y: 40,
+                    opacity: 0,
+                    duration: 0.6,
+                    stagger: 0.15,
+                    ease: "power2.out"
+                });
+            });
+        };
+
+        // --- Bootstrapping ---
+        window.addEventListener('load', () => {
+            // Remove loader
+            const loader = document.getElementById('loader');
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+                
+                // Initialize modules after load to ensure smooth entry
+                initThreeJS();
+                initGSAP();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
