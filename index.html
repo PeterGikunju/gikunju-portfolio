@@ -14,13 +14,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- External Libraries -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -31,7 +26,6 @@
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        // Muted, earthy, techy colors. NO neon, NO bright purple/blue.
                         tech: {
                             bgDark: '#111111',
                             surfaceDark: '#1a1a1a',
@@ -43,7 +37,6 @@
                             borderLight: '#d1d1c7',
                             textLight: '#2b2b2b',
                             
-                            // A dull, professional sage green for accents
                             accentDark: '#7a8b73',
                             accentLight: '#5c6b55'
                         }
@@ -53,6 +46,7 @@
         }
     </script>
 
+    <!-- Theme Initialization -->
     <script>
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
@@ -60,6 +54,12 @@
             document.documentElement.classList.remove('dark');
         }
     </script>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
         body {
@@ -165,12 +165,10 @@
             inset: 0;
             pointer-events: none;
             transition: opacity 0.4s ease;
-            /* Default dark mode overlay */
             background-color: #7a8b73; 
             mix-blend-mode: multiply;
             opacity: 0.6;
         }
-        /* Light mode adjustments */
         html:not(.dark) .img-blend-wrapper::after {
             background-color: #5c6b55;
             mix-blend-mode: screen;
@@ -260,7 +258,7 @@
                 <div class="max-w-3xl gsap-fade-up">
                     <div class="font-mono text-tech-accentLight dark:text-tech-accentDark mb-6 flex items-center gap-2">
                         <i class="ph ph-terminal-window text-xl"></i>
-                        <span>Soon.To.Graduate && FullStack.Dev</span>
+                        <span>Math.CS.Student && FullStack.Dev</span>
                     </div>
                     
                     <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 uppercase text-tech-textLight dark:text-tech-textDark leading-none">
@@ -317,13 +315,13 @@
                     
                     <div class="space-y-4 text-gray-700 dark:text-gray-300 font-sans leading-relaxed">
                         <p>
-                            I am a technologist and a <strong>soon to graduate completionist</strong> in Mathematics and Computer Science at Kenya Methodist University (KEMU). I view code not just as syntax, but as applied mathematics—a tool to solve complex, real-world problems efficiently.
+                            Hello! I’m Peter. I’m a <strong>soon-to-graduate completionist</strong> in Math and CS, but honestly, I still feel like I’m just hacking the mainframe of life. I view code not just as syntax, but as applied mathematics—a tool to build actual production apps because coding is basically just spicy math.
                         </p>
                         <p>
-                            My core philosophy is that technology should be an accessible helper. I have a deep passion for <strong>Machine Learning and Artificial Intelligence</strong>, constantly researching how to optimize workflows and make AI education ubiquitous. 
+                            I’m super obsessed with <strong>Machine Learning and Artificial Intelligence</strong> and want to make it totally foolproof and accessible for everyone. 
                         </p>
                         <p>
-                            When I'm not writing algorithms or architecting databases, you can find me outside tech-exploring. I cycle, swim, and spend time in nature to cool down my mind, reassemble my thoughts, and return to the terminal with fresh logic.
+                            When I’m not fixing busted laptops for our club, Flickstars, or fighting for my life trying to exit Vim, I literally have to go outside and touch grass. I love cycling, swimming, and chilling in nature so my brain doesn't permanently compile into machine code!
                         </p>
                     </div>
 
@@ -360,7 +358,7 @@
                                 <span class="text-tech-accentLight dark:text-tech-accentDark">"ai_data"</span>: [ <br>
                                 &nbsp;&nbsp;"Machine Learning", "Prompt Engineering", <br>
                                 &nbsp;&nbsp;"Statistical Modeling", "Python", "SQL", <br>
-                                &nbsp;&nbsp;"PowerBI", "Excel Automation" <br>
+                                &nbsp;&nbsp;"Strategic AI Planning", "PowerBI" <br>
                                 ],
                             </div>
                             <div class="mb-4">
@@ -535,23 +533,53 @@
             <!-- Certifications Block -->
             <div class="mt-20 gsap-fade-up">
                 <h3 class="font-mono text-sm text-tech-accentLight dark:text-tech-accentDark mb-6 uppercase tracking-widest border-b border-tech-borderLight dark:border-tech-borderDark pb-2">Verified Credentials</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-sm">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 font-mono text-sm">
                     <!-- Cert 1 -->
                     <div class="p-4 border border-tech-borderLight dark:border-tech-borderDark hover:bg-tech-surfaceLight dark:hover:bg-tech-surfaceDark transition-colors">
-                        <div class="text-gray-500 mb-2">ID: 10692664</div>
-                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Supervised & Unsupervised Machine Learning</div>
+                        <div class="text-gray-500 mb-2">ID: 10693590</div>
+                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Agile for Complex Projects</div>
                         <div class="text-tech-accentLight dark:text-tech-accentDark">Simplilearn Skillup</div>
                     </div>
                     <!-- Cert 2 -->
                     <div class="p-4 border border-tech-borderLight dark:border-tech-borderDark hover:bg-tech-surfaceLight dark:hover:bg-tech-surfaceDark transition-colors">
-                        <div class="text-gray-500 mb-2">Mar 2025</div>
-                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Data Science & Analytics</div>
-                        <div class="text-tech-accentLight dark:text-tech-accentDark">HP LIFE Foundation</div>
+                        <div class="text-gray-500 mb-2">ID: 10693592</div>
+                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Introduction to Agile</div>
+                        <div class="text-tech-accentLight dark:text-tech-accentDark">Simplilearn Skillup</div>
                     </div>
                     <!-- Cert 3 -->
                     <div class="p-4 border border-tech-borderLight dark:border-tech-borderDark hover:bg-tech-surfaceLight dark:hover:bg-tech-surfaceDark transition-colors">
+                        <div class="text-gray-500 mb-2">ID: 10693509</div>
+                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Machine Learning Using Python</div>
+                        <div class="text-tech-accentLight dark:text-tech-accentDark">Simplilearn Skillup</div>
+                    </div>
+                    <!-- Cert 4 -->
+                    <div class="p-4 border border-tech-borderLight dark:border-tech-borderDark hover:bg-tech-surfaceLight dark:hover:bg-tech-surfaceDark transition-colors">
+                        <div class="text-gray-500 mb-2">ID: 1cd03a22...</div>
+                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Strategic Planning in the AI Age</div>
+                        <div class="text-tech-accentLight dark:text-tech-accentDark">HP LIFE Foundation</div>
+                    </div>
+                    <!-- Cert 5 -->
+                    <div class="p-4 border border-tech-borderLight dark:border-tech-borderDark hover:bg-tech-surfaceLight dark:hover:bg-tech-surfaceDark transition-colors">
+                        <div class="text-gray-500 mb-2">ID: ec6c3dce...</div>
+                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Prompt Like an Engineer</div>
+                        <div class="text-tech-accentLight dark:text-tech-accentDark">Cisco Networking Academy</div>
+                    </div>
+                    <!-- Cert 6 -->
+                    <div class="p-4 border border-tech-borderLight dark:border-tech-borderDark hover:bg-tech-surfaceLight dark:hover:bg-tech-surfaceDark transition-colors">
+                        <div class="text-gray-500 mb-2">ID: 10692664</div>
+                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Intro to Supervised & Unsupervised ML</div>
+                        <div class="text-tech-accentLight dark:text-tech-accentDark">Simplilearn Skillup</div>
+                    </div>
+                    <!-- Cert 7 -->
+                    <div class="p-4 border border-tech-borderLight dark:border-tech-borderDark hover:bg-tech-surfaceLight dark:hover:bg-tech-surfaceDark transition-colors">
+                        <div class="text-gray-500 mb-2">ID: 1bb89b36...</div>
+                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Data Science & Analytics</div>
+                        <div class="text-tech-accentLight dark:text-tech-accentDark">HP LIFE Foundation</div>
+                    </div>
+                    <!-- Cert 8 -->
+                    <div class="p-4 border border-tech-borderLight dark:border-tech-borderDark hover:bg-tech-surfaceLight dark:hover:bg-tech-surfaceDark transition-colors">
                         <div class="text-gray-500 mb-2">ID: 5f4faf86...</div>
-                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Digital Awareness (Networking)</div>
+                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Digital Awareness</div>
                         <div class="text-tech-accentLight dark:text-tech-accentDark">Cisco Networking Academy</div>
                     </div>
                 </div>
