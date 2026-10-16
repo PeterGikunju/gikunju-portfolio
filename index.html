@@ -1,793 +1,495 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<!doctype html>
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peter Gikunju | Gikunju Creates</title>
-    <meta name="description" content="Portfolio of Peter Ng'ang'a Gikunju - Web Developer, Designer, and Math & CS Student specializing in AI, Machine Learning, and secure web systems.">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/jpeg" href="Image/logo.jpg">
-    
-    <!-- Fonts: Space Grotesk for headings, JetBrains Mono for a techy/code feel -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Space Grotesk', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        tech: {
-                            bgDark: '#111111',
-                            surfaceDark: '#1a1a1a',
-                            borderDark: '#333333',
-                            textDark: '#d4d4d4',
-                            
-                            bgLight: '#f4f4f0',
-                            surfaceLight: '#e8e8e3',
-                            borderLight: '#d1d1c7',
-                            textLight: '#2b2b2b',
-                            
-                            accentDark: '#7a8b73',
-                            accentLight: '#5c6b55'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f1efe5">
+  <meta name="description" content="Peter Gikunju builds web and mobile tools for e-commerce and rental management in Meru, Kenya.">
+  <meta property="og:title" content="Peter Gikunju — Software for everyday work">
+  <meta property="og:description" content="Web and mobile products for e-commerce, rental management, and the people who run them.">
+  <meta property="og:type" content="website">
+  <title>Peter Gikunju — Software for everyday work</title>
+  <link rel="icon" type="image/svg+xml" href="Image/mark.svg">
+  <link rel="preload" as="image" href="Image/portrait.jpg" fetchpriority="high">
+  <script>
+    try {
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.dataset.theme = savedTheme || (prefersDark ? 'dark' : 'light');
+    } catch (_) {}
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --page: #f1efe5; --surface: #f8f6ed; --surface-soft: #e8e5d8; --ink: #263126;
+      --muted: #687064; --line: #d4d2c5; --blue: #71805c; --blue-dark: #4f6044;
+      --lime: #b99a6b; --nav-bg: rgba(241,239,229,.96); --hero: #1d2b22;
+      --hero-ink: #f1efe4; --hero-muted: #c0c5b8;
+      --container: 1160px;
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --page: #151d17; --surface: #1d2820; --surface-soft: #263228; --ink: #eeeade;
+      --muted: #b4b8aa; --line: #3b463a; --blue: #a7b58d; --blue-dark: #c2cba9;
+      --lime: #c4a879; --nav-bg: rgba(21,29,23,.97); --hero: #202d24;
+      --hero-ink: #f1efe4; --hero-muted: #c0c5b8;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    body {
+      margin: 0; background: var(--page); color: var(--ink);
+      font-family: "Segoe UI", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased;
+      transition: background-color .25s ease, color .25s ease;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    ::selection { background: var(--lime); color: #20271e; }
+    :focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+    .skip-link {
+      position: fixed; z-index: 100; top: 12px; left: 12px; padding: 10px 16px;
+      border-radius: 0; background: var(--surface); color: var(--ink);
+      transform: translateY(-150%); transition: transform .2s ease;
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .wrap { width: min(var(--container), calc(100% - 48px)); margin-inline: auto; }
+    .section { padding: 112px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 42px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px; margin: 0 0 16px;
+      color: var(--blue); font-size: .76rem; font-weight: 750; letter-spacing: .13em;
+      line-height: 1.4; text-transform: uppercase;
+    }
+    .eyebrow-dot { width: 18px; height: 2px; flex: 0 0 auto; background: var(--lime); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { letter-spacing: -.045em; }
+    h2 { margin-bottom: 0; font-family: Georgia,"Times New Roman",serif; font-size: clamp(2.1rem,4vw,3.35rem); font-weight: 500; line-height: 1.08; letter-spacing: -.035em; }
+    .section-copy { max-width: 490px; margin: 0; color: var(--muted); }
+    .site-header { position: sticky; z-index: 20; top: 0; height: 78px; border-bottom: 1px solid var(--line); background: var(--nav-bg); }
+    .nav-row { display: flex; height: 100%; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand-mark { display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid var(--line); border-radius: 0; background: var(--surface-soft); color: var(--blue-dark); font-family: Georgia, serif; font-size: 1.05rem; font-weight: 700; }
+    .brand-name { display: grid; line-height: 1.18; }
+    .brand-name strong { font-size: .91rem; letter-spacing: .035em; }
+    .brand-name span { margin-top: 4px; color: var(--muted); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a, .mobile-menu a { color: var(--muted); font-size: .88rem; font-weight: 650; text-decoration: none; transition: color .2s ease; }
+    .nav-links a:hover, .mobile-menu a:hover { color: var(--blue); }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .theme-toggle, .menu-toggle {
+      display: inline-flex; width: 42px; height: 42px; align-items: center; justify-content: center;
+      border: 1px solid var(--line); border-radius: 0; background: var(--surface); color: var(--ink);
+      cursor: pointer; transition: border-color .2s ease, transform .2s ease;
+    }
+    .theme-toggle:hover, .menu-toggle:hover { transform: translateY(-2px); border-color: var(--blue); }
+    .theme-toggle svg { width: 19px; height: 19px; }
+    .theme-toggle .sun { display: none; }
+    :root[data-theme="dark"] .theme-toggle .moon { display: none; }
+    :root[data-theme="dark"] .theme-toggle .sun { display: block; }
+    .button {
+      display: inline-flex; min-height: 50px; align-items: center; justify-content: center; gap: 12px;
+      padding: 0 20px; border: 1px solid transparent; border-radius: 0;
+      font-size: .9rem; font-weight: 750; text-decoration: none;
+      transition: transform .2s ease, background-color .2s ease, border-color .2s ease, color .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { background: var(--lime); color: #20271e; }
+    .button-primary:hover { background: #c5ad85; }
+    .button-outline { border-color: rgba(255,255,255,.28); color: var(--hero-ink); }
+    .button-outline:hover { border-color: var(--lime); color: var(--lime); }
+    .button-light { border-color: var(--line); background: var(--surface); color: var(--ink); }
+    .button-light:hover { border-color: var(--blue); color: var(--blue); }
+    .button-arrow { font-size: 1.15rem; line-height: 1; }
+    .menu-toggle { display: none; }
+    .menu-icon { display: grid; gap: 5px; }
+    .menu-icon i { display: block; width: 17px; height: 2px; background: currentColor; transition: transform .2s ease; }
+    .menu-toggle[aria-expanded="true"] .menu-icon i:first-child { transform: translateY(3.5px) rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] .menu-icon i:last-child { transform: translateY(-3.5px) rotate(-45deg); }
+    .mobile-menu { display: none; }
 
-    <!-- Theme Initialization -->
-    <script>
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    </script>
+    .hero { position: relative; overflow: hidden; padding: 78px 0 72px; background: var(--hero); color: var(--hero-ink); border-bottom: 1px solid var(--line); }
+    .hero-grid { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(330px,.85fr); align-items: center; gap: clamp(44px,8vw,100px); }
+    .hero .eyebrow { color: #c9c9b7; }
+    .hero h1 { max-width: 740px; margin-bottom: 25px; font-family: Georgia,"Times New Roman",serif; font-size: clamp(3.25rem,6.1vw,5.6rem); font-weight: 500; line-height: 1.02; letter-spacing: -.055em; }
+    .hero-intro { max-width: 610px; margin-bottom: 30px; color: var(--hero-muted); font-size: clamp(1rem,1.4vw,1.15rem); line-height: 1.8; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-foot { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 30px; color: #d4d3c6; font-size: .78rem; }
+    .hero-foot span { display: inline-flex; align-items: center; gap: 9px; }
+    .hero-foot b { color: var(--lime); font-size: .7rem; font-weight: 500; }
+    .portrait-wrap { position: relative; width: min(100%,430px); justify-self: end; }
+    .portrait-frame { overflow: hidden; aspect-ratio: .83; border: 7px solid #344333; background: #344333; }
+    .portrait-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center 24%; }
+    .portrait-label {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 12px 0 0; border-top: 1px solid rgba(241,239,228,.35); color: var(--hero-ink);
+    }
+    .portrait-label strong { display: block; font-size: .82rem; }
+    .portrait-label span { display: block; color: #c0c5b8; font-size: .7rem; }
+    .portrait-label .portrait-place { text-align: right; letter-spacing: .06em; text-transform: uppercase; }
 
-    <!-- External Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    .about-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(320px,.82fr); gap: clamp(42px,8vw,108px); align-items: start; }
+    .about-copy { max-width: 640px; }
+    .about-copy h2 { margin-bottom: 23px; }
+    .about-copy p { color: var(--muted); }
+    .about-copy .lead { color: var(--ink); font-size: 1.16rem; line-height: 1.75; }
+    .focus-card { padding: 25px 0 0 27px; border: 0; border-left: 2px solid var(--blue); border-radius: 0; background: transparent; box-shadow: none; }
+    .focus-top { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+    .focus-top strong { font-size: 1.05rem; }
+    .focus-top span { color: var(--muted); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; }
+    .focus-list { display: grid; gap: 21px; margin: 24px 0 0; padding: 0; list-style: none; }
+    .focus-list li { display: flex; align-items: start; gap: 13px; }
+    .focus-number { color: var(--blue); font-size: .72rem; font-weight: 800; letter-spacing: .08em; }
+    .focus-list strong { display: block; font-size: .91rem; }
+    .focus-list small { color: var(--muted); font-size: .8rem; }
 
-    <style>
-        body {
-            overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+    .work-section, .experience-section { background: var(--surface); }
+    .work-grid { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--line); }
+    .project-card { display: grid; grid-template-columns: minmax(250px,.8fr) minmax(0,1.2fr); border-bottom: 1px solid var(--line); background: transparent; }
+    .project-card:hover { border-color: var(--blue); }
+    .project-art { display: flex; min-height: 205px; align-items: end; justify-content: space-between; gap: 15px; padding: 25px 30px; border-right: 1px solid var(--line); }
+    .project-art--wen { background: #ded9c7; color: #293329; }
+    .project-art--ruiru { background: #344537; color: #f1efe4; }
+    .project-art--admin { background: #c6c8b7; color: #293329; }
+    :root[data-theme="dark"] .project-art--wen { background: #373d31; color: #eeeade; }
+    :root[data-theme="dark"] .project-art--ruiru { background: #293a2e; color: #eeeade; }
+    :root[data-theme="dark"] .project-art--admin { background: #353d32; color: #eeeade; }
+    .project-art-copy { display: grid; gap: 15px; }
+    .art-kicker { font-family: "Cascadia Code","SFMono-Regular",Consolas,monospace; font-size: .67rem; letter-spacing: .11em; text-transform: uppercase; }
+    .project-art-title { font-family: Georgia,"Times New Roman",serif; font-size: clamp(1.9rem,3vw,2.8rem); font-weight: 500; line-height: .98; letter-spacing: -.045em; }
+    .project-art-index { padding-bottom: 3px; border-bottom: 1px solid currentColor; font-family: Georgia,"Times New Roman",serif; font-size: 1.2rem; }
+    .project-content { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 26px clamp(24px,5vw,58px); }
+    .project-overline { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; color: var(--muted); font-size: .7rem; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; }
+    .project-content h3 { margin: 0 0 9px; font-size: 1.45rem; line-height: 1.2; }
+    .project-content p { max-width: 620px; margin-bottom: 18px; color: var(--muted); font-size: .88rem; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0; }
+    .project-tags span { padding: 0 10px; border-left: 1px solid var(--line); color: var(--muted); font-size: .68rem; font-weight: 650; }
+    .project-tags span:first-child { padding-left: 0; border-left: 0; }
+    .project-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; color: var(--blue-dark); font-size: .82rem; font-weight: 750; text-decoration: none; }
+    .project-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 
-        /* 3D Canvas Background */
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none;
-        }
+    .skills-section { border-top: 1px solid var(--line); }
+    .skills-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px; }
+    .skill-card { min-height: 188px; padding: 22px; border-top: 1px solid var(--line); border-radius: 0; background: transparent; }
+    .skill-index { display: block; margin-bottom: 29px; color: var(--blue); font-size: .7rem; font-weight: 800; letter-spacing: .12em; }
+    .skill-card h3 { margin-bottom: 10px; font-family: Georgia,"Times New Roman",serif; font-size: 1.2rem; font-weight: 500; letter-spacing: -.02em; }
+    .skill-card p { margin: 0; color: var(--muted); font-size: .8rem; line-height: 1.75; }
 
-        /* Blueprint Grid Background fallback */
-        .bg-grid-pattern {
-            background-size: 40px 40px;
-            background-image: linear-gradient(to right, rgba(128, 128, 128, 0.05) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(128, 128, 128, 0.05) 1px, transparent 1px);
-        }
+    .timeline { position: relative; max-width: 900px; margin: 0 auto; }
+    .timeline::before { position: absolute; top: 13px; bottom: 15px; left: 147px; width: 1px; background: var(--line); content: ""; }
+    .role { position: relative; display: grid; grid-template-columns: 120px 1fr; gap: 55px; padding: 0 0 34px; }
+    .role:last-child { padding-bottom: 0; }
+    .role::before { position: absolute; top: 10px; left: 143px; width: 9px; height: 9px; border: 1px solid var(--surface); background: var(--blue); content: ""; }
+    .role-date { padding-top: 4px; color: var(--muted); font-size: .78rem; font-weight: 700; }
+    .role-card { padding: 0 0 29px; border-bottom: 1px solid var(--line); }
+    .role:last-child .role-card { padding-bottom: 0; border-bottom: 0; }
+    .role-title { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 20px; margin-bottom: 5px; }
+    .role-title h3 { margin: 0; font-size: 1.16rem; letter-spacing: -.025em; }
+    .role-company { color: var(--blue-dark); font-size: .84rem; font-weight: 700; }
+    .role-card p { max-width: 680px; margin: 9px 0 0; color: var(--muted); font-size: .88rem; }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #7a8b73; border-radius: 0px; }
-        .light ::-webkit-scrollbar-thumb { background: #5c6b55; }
+    .credentials { margin-top: 65px; padding: 20px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); border-radius: 0; background: transparent; }
+    .credentials summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; cursor: pointer; font-weight: 750; list-style: none; }
+    .credentials summary::-webkit-details-marker { display: none; }
+    .credentials summary::after { content: "+"; color: var(--blue); font-size: 1.4rem; }
+    .credentials[open] summary::after { content: "−"; }
+    .credentials-list { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; margin-top: 22px; }
+    .credential { padding: 12px 14px; border-left: 2px solid var(--line); border-radius: 0; background: transparent; }
+    .credential strong { display: block; font-size: .82rem; line-height: 1.45; }
+    .credential span { display: block; margin-top: 7px; color: var(--muted); font-size: .73rem; }
 
-        /* Tech Brackets Hover Effect */
-        .tech-link {
-            position: relative;
-            display: inline-block;
-        }
-        .tech-link::before, .tech-link::after {
-            opacity: 0;
-            transition: all 0.2s ease;
-            color: currentColor;
-        }
-        .tech-link::before { content: "[ "; transform: translateX(10px); }
-        .tech-link::after { content: " ]"; transform: translateX(-10px); }
-        .tech-link:hover::before, .tech-link:hover::after {
-            opacity: 1;
-            transform: translateX(0);
-        }
+    .contact-section { padding: 0 0 90px; }
+    .contact-panel {
+      position: relative; display: flex; align-items: center; justify-content: space-between; gap: 36px;
+      overflow: hidden; padding: clamp(34px,6vw,70px); border-radius: 0; background: var(--hero); color: var(--hero-ink);
+    }
+    .contact-panel .eyebrow { color: #c9c9b7; }
+    .contact-panel h2 { max-width: 620px; margin-bottom: 14px; }
+    .contact-panel p { max-width: 540px; margin: 0; color: var(--hero-muted); }
+    .contact-actions { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 11px; }
+    .site-footer { padding: 26px 0 34px; border-top: 1px solid var(--line); }
+    .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; color: var(--muted); font-size: .77rem; }
+    .footer-brand { color: var(--ink); font-weight: 750; }
 
-        /* Structured Card Hover */
-        .blueprint-card {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .blueprint-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 6px 6px 0px currentColor;
-        }
-
-        /* Floating Animation */
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(2deg); }
-            50% { transform: translateY(-12px) rotate(0deg); }
-            100% { transform: translateY(0px) rotate(2deg); }
-        }
-        .floating-element {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* Loader */
-        #loader {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: #111111;
-            color: #7a8b73;
-            transition: opacity 0.5s ease;
-        }
-        .light #loader { background: #f4f4f0; color: #5c6b55; }
-        
-        /* Blinking Cursor */
-        .cursor-blink {
-            animation: blink 1s step-end infinite;
-        }
-        @keyframes blink { 50% { opacity: 0; } }
-
-        /* Custom Image Color Matrix Logic */
-        .img-blend-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: block;
-        }
-        .img-blend {
-            filter: grayscale(100%) contrast(1.2);
-            opacity: 0.7;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .img-blend-wrapper::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-            background-color: #7a8b73; 
-            mix-blend-mode: multiply;
-            opacity: 0.6;
-        }
-        html:not(.dark) .img-blend-wrapper::after {
-            background-color: #5c6b55;
-            mix-blend-mode: screen;
-            opacity: 0.5;
-        }
-        .img-blend-wrapper:hover .img-blend {
-            filter: grayscale(0%) contrast(1);
-            opacity: 1;
-            transform: scale(1.03);
-        }
-        .img-blend-wrapper:hover::after {
-            opacity: 0;
-        }
-    </style>
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: minmax(0,1.1fr) minmax(260px,.8fr); gap: 44px; }
+      .about-grid { gap: 42px; }
+      .skills-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .credentials-list { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .contact-panel { align-items: start; flex-direction: column; }
+    }
+    @media (max-width: 700px) {
+      html { scroll-padding-top: 76px; }
+      .wrap { width: min(var(--container),calc(100% - 36px)); }
+      .section { padding: 78px 0; }
+      .site-header { height: 70px; }
+      .nav-links, .nav-contact { display: none; }
+      .menu-toggle { display: inline-flex; }
+      .mobile-menu { position: absolute; top: 69px; right: 0; left: 0; display: grid; gap: 0; padding: 8px 18px 16px; border-bottom: 1px solid var(--line); background: var(--page); }
+      .mobile-menu[hidden] { display: none; }
+      .mobile-menu a { padding: 13px 2px; border-bottom: 1px solid var(--line); color: var(--ink); }
+      .mobile-menu a:last-child { border-bottom: 0; }
+      .hero { padding: 62px 0 58px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 38px; }
+      .hero h1 { max-width: 600px; font-size: clamp(3.2rem,12vw,5.2rem); }
+      .hero-intro { font-size: 1rem; }
+      .portrait-wrap { width: min(82%,380px); justify-self: center; }
+      .portrait-frame { aspect-ratio: .9; }
+      .section-head { align-items: start; flex-direction: column; gap: 15px; margin-bottom: 30px; }
+      .about-grid { grid-template-columns: 1fr; gap: 30px; }
+      .focus-card { padding: 23px 0 0 20px; }
+      .project-card { grid-template-columns: 1fr; }
+      .project-art { min-height: 180px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .project-content { padding: 23px; }
+      .timeline::before { left: 4px; }
+      .role { grid-template-columns: 1fr; gap: 7px; padding-left: 25px; }
+      .role::before { left: -1px; }
+      .role-date { padding-top: 0; }
+      .role-title { display: block; }
+      .role-company { display: block; margin-top: 4px; }
+      .credentials { margin-top: 45px; padding: 20px; }
+      .credentials-list { grid-template-columns: 1fr 1fr; gap: 9px; }
+      .credential { padding: 12px; }
+      .contact-section { padding-bottom: 60px; }
+      .contact-panel { gap: 24px; padding: 31px 24px; }
+      .contact-actions { width: 100%; }
+      .footer-row { align-items: start; flex-direction: column; gap: 5px; }
+    }
+    @media (max-width: 390px) {
+      .hero h1 { font-size: 3rem; }
+      .hero-actions .button { width: 100%; }
+      .credentials-list { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
 </head>
-<body class="antialiased bg-tech-bgLight text-tech-textLight dark:bg-tech-bgDark dark:text-tech-textDark bg-grid-pattern selection:bg-tech-accentLight selection:text-white dark:selection:bg-tech-accentDark dark:selection:text-tech-bgDark">
-
-    <!-- Loader -->
-    <div id="loader">
-        <div class="font-mono text-xl mb-4" id="loader-text">> system.boot()_</div>
-        <div class="w-48 h-1 bg-tech-borderDark dark:bg-tech-borderLight overflow-hidden relative">
-            <div class="absolute top-0 left-0 h-full bg-tech-accentLight dark:bg-tech-accentDark w-0" id="loader-bar"></div>
-        </div>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap nav-row">
+      <a class="brand" href="#home" aria-label="Peter Gikunju, home">
+        <span class="brand-mark" aria-hidden="true">G</span>
+        <span class="brand-name"><strong>Gikunju Creates</strong><span>Software from Meru, Kenya</span></span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#work">Selected work</a>
+        <a href="#experience">Experience</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="button button-light nav-contact" href="#contact">Let’s talk <span class="button-arrow" aria-hidden="true">↗</span></a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme" aria-pressed="false">
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 15.1A8.5 8.5 0 0 1 8.9 3.6 8.6 8.6 0 1 0 20.4 15.1Z"/></svg>
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        </button>
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open navigation">
+          <span class="menu-icon" aria-hidden="true"><i></i><i></i></span>
+        </button>
+      </div>
     </div>
-
-    <!-- 3D Mathematical Topography Background -->
-    <div id="canvas-container"></div>
-
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 transition-all duration-300 border-b border-tech-borderLight dark:border-tech-borderDark bg-tech-bgLight/80 dark:bg-tech-bgDark/80 backdrop-blur-sm" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 font-mono text-sm">
-                
-                <!-- Logo -->
-                <div class="flex-shrink-0 cursor-pointer group flex items-center gap-3" onclick="window.scrollTo(0,0)">
-                    <div class="w-8 h-8 img-blend-wrapper rounded-sm border border-tech-borderLight dark:border-tech-borderDark hidden sm:block">
-                        <img src="Image/logo.jpg" alt="Logo" class="w-full h-full object-cover img-blend">
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="font-bold tracking-tighter text-tech-accentLight dark:text-tech-accentDark">GIKUNJU_CREATES</span>
-                        <span class="text-[10px] text-gray-500">v2.0.26</span>
-                    </div>
-                </div>
-                
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#profile" class="tech-link hover:text-tech-accentLight dark:hover:text-tech-accentDark transition-colors">./profile</a>
-                    <a href="#experience" class="tech-link hover:text-tech-accentLight dark:hover:text-tech-accentDark transition-colors">./experience</a>
-                    <a href="#projects" class="tech-link hover:text-tech-accentLight dark:hover:text-tech-accentDark transition-colors">./projects</a>
-                    <a href="#contact" class="border border-tech-borderLight dark:border-tech-borderDark px-4 py-1.5 hover:bg-tech-accentLight hover:text-white dark:hover:bg-tech-accentDark dark:hover:text-tech-bgDark transition-all">init_contact()</a>
-                    
-                    <!-- Theme Toggle -->
-                    <button id="theme-toggle" class="p-2 border border-tech-borderLight dark:border-tech-borderDark hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors flex items-center justify-center">
-                        <i class="ph ph-moon text-lg dark:hidden"></i>
-                        <i class="ph ph-sun text-lg hidden dark:block"></i>
-                    </button>
-                </div>
-
-                <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center gap-4">
-                    <button id="theme-toggle-mobile" class="p-2 border border-tech-borderLight dark:border-tech-borderDark">
-                        <i class="ph ph-moon text-lg dark:hidden"></i>
-                        <i class="ph ph-sun text-lg hidden dark:block"></i>
-                    </button>
-                    <button type="button" id="mobile-menu-btn" class="p-2 border border-tech-borderLight dark:border-tech-borderDark">
-                        <i class="ph ph-list text-lg"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Mobile Menu -->
-        <div class="md:hidden hidden border-t border-tech-borderLight dark:border-tech-borderDark bg-tech-bgLight dark:bg-tech-bgDark absolute w-full font-mono text-sm" id="mobile-menu">
-            <div class="px-4 py-4 space-y-4 flex flex-col">
-                <a href="#profile" class="hover:text-tech-accentLight dark:hover:text-tech-accentDark">./profile</a>
-                <a href="#experience" class="hover:text-tech-accentLight dark:hover:text-tech-accentDark">./experience</a>
-                <a href="#projects" class="hover:text-tech-accentLight dark:hover:text-tech-accentDark">./projects</a>
-                <a href="#contact" class="hover:text-tech-accentLight dark:hover:text-tech-accentDark">init_contact()</a>
-            </div>
-        </div>
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+      <a href="#about">About</a><a href="#work">Selected work</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
     </nav>
+  </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 min-h-[90vh] flex items-center border-b border-tech-borderLight dark:border-tech-borderDark overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="max-w-3xl gsap-fade-up">
-                    <div class="font-mono text-tech-accentLight dark:text-tech-accentDark mb-6 flex items-center gap-2">
-                        <i class="ph ph-terminal-window text-xl"></i>
-                        <span>Math.CS.Student && FullStack.Dev</span>
-                    </div>
-                    
-                    <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 uppercase text-tech-textLight dark:text-tech-textDark leading-none">
-                        Peter Ng'ang'a <br/> Gikunju.
-                    </h1>
-                    
-                    <p class="text-lg md:text-xl font-mono text-gray-600 dark:text-gray-400 mb-8 leading-relaxed border-l-2 border-tech-accentLight dark:border-tech-accentDark pl-4">
-                        Leveraging a rigorous mathematical foundation to architect intelligent, secure, and resilient digital systems. Specializing in <span class="text-tech-textLight dark:text-tech-textDark font-bold">Modern Web Architecture</span> and <span class="text-tech-textLight dark:text-tech-textDark font-bold">Machine Learning / AI</span> integrations.
-                    </p>
-                    
-                    <div class="flex flex-wrap gap-4 font-mono text-sm mt-12">
-                        <a href="#projects" class="bg-tech-textLight text-tech-bgLight dark:bg-tech-textDark dark:text-tech-bgDark px-6 py-3 border border-transparent hover:bg-transparent hover:text-tech-textLight dark:hover:text-tech-textDark hover:border-tech-textLight dark:hover:border-tech-textDark transition-all hover:shadow-[0_0_15px_currentColor]">
-                            Execute: view_work()
-                        </a>
-                        <a href="https://wa.me/16039991267" target="_blank" class="border border-tech-borderLight dark:border-tech-borderDark px-6 py-3 hover:bg-tech-accentLight hover:text-white dark:hover:bg-tech-accentDark dark:hover:text-tech-bgDark transition-all flex items-center gap-2">
-                            <i class="ph ph-whatsapp-logo text-lg"></i> Ping Me
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="hidden lg:block gsap-fade-up max-w-[500px] justify-self-end">
-                    <div class="border-4 border-tech-surfaceLight dark:border-tech-surfaceDark p-2 bg-tech-bgLight dark:bg-tech-bgDark img-blend-wrapper floating-element shadow-xl">
-                        <img src="Image/img2.jpg" alt="Portfolio Displays" class="w-full h-auto img-blend border border-tech-borderLight dark:border-tech-borderDark">
-                    </div>
-                </div>
-            </div>
+  <main id="main">
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-dot"></span> Peter Gikunju &nbsp; / &nbsp; Meru, Kenya</p>
+          <h1 id="hero-title">Software for shops, rentals, and the people who run them.</h1>
+          <p class="hero-intro">I’m a developer and Mathematics &amp; Computer Science student. My recent work includes an appliance marketplace, a property-management portal, and an Android admin app.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#work">Selected work <span class="button-arrow" aria-hidden="true">↓</span></a>
+            <a class="button button-outline" href="mailto:pngikunju671@gmail.com">Email me <span class="button-arrow" aria-hidden="true">↗</span></a>
+          </div>
+          <div class="hero-foot" aria-label="Focus areas">
+            <span><b aria-hidden="true">01</b> E-commerce</span><span><b aria-hidden="true">02</b> Rental operations</span><span><b aria-hidden="true">03</b> Community tech</span>
+          </div>
         </div>
-        
-        <!-- Decorative blueprint elements -->
-        <div class="absolute bottom-10 right-10 font-mono text-xs text-gray-400 dark:text-gray-600 hidden md:block text-right">
-            STATUS: ONLINE <br>
-            LOC: MERU, KENYA <br>
-            SYS: KEMU [GRAD_TRACK]
+        <div class="portrait-wrap">
+          <div class="portrait-frame"><img src="Image/portrait.jpg" width="900" height="1200" alt="Peter Gikunju in a navy suit" fetchpriority="high"></div>
+          <div class="portrait-label"><span><strong>Peter Gikunju</strong><span>Developer · Mathematics &amp; CS</span></span><span class="portrait-place">Based in<br>Meru, Kenya</span></div>
         </div>
+      </div>
     </section>
 
-    <!-- Profile & Skills Section -->
-    <section id="profile" class="py-24 border-b border-tech-borderLight dark:border-tech-borderDark relative z-10 bg-tech-bgLight/90 dark:bg-tech-bgDark/90 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                
-                <!-- About Text & Image -->
-                <div class="gsap-fade-up">
-                    <h2 class="font-mono text-tech-accentLight dark:text-tech-accentDark mb-4 flex items-center gap-2">
-                        <i class="ph ph-user-circle"></i> ~/profile/about.txt
-                    </h2>
-                    
-                    <!-- Integrated Profile Image -->
-                    <div class="w-32 h-32 mb-6 border-2 border-tech-borderLight dark:border-tech-borderDark p-1 rounded-sm img-blend-wrapper">
-                        <img src="Image/photo1.png" alt="Peter Gikunju" class="w-full h-full object-cover img-blend">
-                    </div>
-
-                    <h3 class="text-3xl font-bold mb-6">The Logic Behind The Code.</h3>
-                    
-                    <div class="space-y-4 text-gray-700 dark:text-gray-300 font-sans leading-relaxed">
-                        <p>
-                            Hello! I’m Peter. I’m a <strong>soon-to-graduate completionist</strong> in Math and CS, but honestly, I still feel like I’m just hacking the mainframe of life. I view code not just as syntax, but as applied mathematics—a tool to build actual production apps because coding is basically just spicy math.
-                        </p>
-                        <p>
-                            I’m super obsessed with <strong>Machine Learning and Artificial Intelligence</strong> and want to make it totally foolproof and accessible for everyone. 
-                        </p>
-                        <p>
-                            When I’m not fixing busted laptops for our club, Flickstars, or fighting for my life trying to exit Vim, I literally have to go outside and touch grass. I love cycling, swimming, and chilling in nature so my brain doesn't permanently compile into machine code!
-                        </p>
-                    </div>
-
-                    <!-- Personal Metrics -->
-                    <div class="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-tech-borderLight dark:border-tech-borderDark font-mono text-center md:text-left">
-                        <div>
-                            <div class="text-2xl font-bold text-tech-textLight dark:text-tech-textDark">100%</div>
-                            <div class="text-xs text-gray-500 uppercase">Client Sat.</div>
-                        </div>
-                        <div>
-                            <div class="text-2xl font-bold text-tech-textLight dark:text-tech-textDark">24/7</div>
-                            <div class="text-xs text-gray-500 uppercase">System Support</div>
-                        </div>
-                        <div>
-                            <div class="text-2xl font-bold text-tech-textLight dark:text-tech-textDark">5+</div>
-                            <div class="text-xs text-gray-500 uppercase">Major Deploys</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Skills Matrix (Terminal style) -->
-                <div class="gsap-fade-up delay-100 h-full min-h-[450px]">
-                    <div class="border border-tech-borderLight dark:border-tech-borderDark bg-tech-surfaceLight dark:bg-tech-surfaceDark rounded-sm overflow-hidden h-full flex flex-col shadow-lg">
-                        <!-- Terminal Header -->
-                        <div class="border-b border-tech-borderLight dark:border-tech-borderDark px-4 py-2 flex items-center gap-2 bg-gray-200 dark:bg-[#252525]">
-                            <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                            <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                            <span class="ml-4 font-mono text-xs text-gray-500">skills.json</span>
-                        </div>
-                        <!-- Terminal Body -->
-                        <div class="p-6 font-mono text-sm flex-grow overflow-auto text-gray-700 dark:text-gray-300">
-                            <div class="mb-4">
-                                <span class="text-tech-accentLight dark:text-tech-accentDark">"ai_data"</span>: [ <br>
-                                &nbsp;&nbsp;"Machine Learning", "Prompt Engineering", <br>
-                                &nbsp;&nbsp;"Statistical Modeling", "Python", "SQL", <br>
-                                &nbsp;&nbsp;"Strategic AI Planning", "PowerBI" <br>
-                                ],
-                            </div>
-                            <div class="mb-4">
-                                <span class="text-tech-accentLight dark:text-tech-accentDark">"frontend"</span>: [ <br>
-                                &nbsp;&nbsp;"React", "Tailwind CSS", "HTML/CSS/JS", <br>
-                                &nbsp;&nbsp;"Vite", "3D Animations (Three.js)" <br>
-                                ],
-                            </div>
-                            <div class="mb-4">
-                                <span class="text-tech-accentLight dark:text-tech-accentDark">"backend_infra"</span>: [ <br>
-                                &nbsp;&nbsp;"Supabase", "RBAC Architecture", "Vercel", <br>
-                                &nbsp;&nbsp;"Google Search Console (DNS)" <br>
-                                ],
-                            </div>
-                            <div class="mb-4">
-                                <span class="text-tech-accentLight dark:text-tech-accentDark">"mobile_security"</span>: [ <br>
-                                &nbsp;&nbsp;"Android Studio", "Kali Linux", <br>
-                                &nbsp;&nbsp;"Network Defense", "Hardware Diagnostics" <br>
-                                ]
-                            </div>
-                            <span class="animate-pulse font-bold text-tech-accentLight dark:text-tech-accentDark">_</span>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="wrap about-grid">
+        <div class="about-copy">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> 01 &nbsp; / &nbsp; About</p>
+          <h2 id="about-title">I like working on the systems behind everyday work.</h2>
+          <p class="lead">How a shop handles customer questions. How a landlord tracks rent. How a receipt gets from a database into someone’s hands.</p>
+          <p>Those are the kinds of details I think about when I build software. My Mathematics and Computer Science studies at Kenya Methodist University shape how I approach data and systems; project work has taught me to make the result clear for the people using it.</p>
+          <p>Outside software, I enjoy cycling, swimming, and getting out into nature. I’ve also supported community tech workshops through Flickstars.</p>
         </div>
+        <aside class="focus-card" aria-label="Areas of focus">
+          <div class="focus-top"><strong>Tools I reach for</strong><span>In practice</span></div>
+          <ul class="focus-list">
+            <li><span class="focus-number">01</span><span><strong>Web development</strong><small>React, JavaScript, HTML, CSS, Tailwind, Vite</small></span></li>
+            <li><span class="focus-number">02</span><span><strong>Backend &amp; data</strong><small>Supabase, SQL, role-based access, Python</small></span></li>
+            <li><span class="focus-number">03</span><span><strong>AI &amp; analytics</strong><small>Machine learning, statistical modeling, Power BI</small></span></li>
+            <li><span class="focus-number">04</span><span><strong>Mobile &amp; systems</strong><small>Android Studio, hardware diagnostics, network defense</small></span></li>
+          </ul>
+        </aside>
+      </div>
     </section>
 
-    <!-- Experience Section -->
-    <section id="experience" class="py-24 border-b border-tech-borderLight dark:border-tech-borderDark relative z-10 bg-tech-bgLight dark:bg-tech-bgDark">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="font-mono text-tech-accentLight dark:text-tech-accentDark mb-12 flex items-center gap-2 gsap-fade-up">
-                <i class="ph ph-briefcase"></i> ~/professional/timeline.log
-            </h2>
-
-            <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-[1px] before:bg-tech-borderLight dark:before:bg-tech-borderDark">
-                
-                <!-- Exp 1 -->
-                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group gsap-fade-up">
-                    <div class="flex items-center justify-center w-10 h-10 rounded border border-tech-borderLight dark:border-tech-borderDark bg-tech-surfaceLight dark:bg-tech-surfaceDark shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 font-mono text-xs">
-                        '26
-                    </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] border border-tech-borderLight dark:border-tech-borderDark bg-tech-surfaceLight dark:bg-tech-surfaceDark p-6 blueprint-card text-tech-accentLight dark:text-tech-accentDark">
-                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-2">
-                            <h4 class="font-bold text-lg text-tech-textLight dark:text-tech-textDark">Property Manager & Dev</h4>
-                            <span class="font-mono text-xs">Jun 2026 - Present</span>
-                        </div>
-                        <div class="font-mono text-sm mb-3">@ Ruiru Rentals</div>
-                        <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-2 list-none font-sans">
-                            <li class="flex gap-2"><i class="ph ph-caret-right mt-1 text-tech-accentLight dark:text-tech-accentDark"></i> Manage operations and billing for multiple tenant rental units.</li>
-                            <li class="flex gap-2"><i class="ph ph-caret-right mt-1 text-tech-accentLight dark:text-tech-accentDark"></i> Engineered a proprietary web portal (ruirurentals.co.ke) with strict RBAC to automate receipts and track utility billing.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Exp 2 -->
-                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group gsap-fade-up">
-                    <div class="flex items-center justify-center w-10 h-10 rounded border border-tech-borderLight dark:border-tech-borderDark bg-tech-surfaceLight dark:bg-tech-surfaceDark shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 font-mono text-xs">
-                        '22
-                    </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] border border-tech-borderLight dark:border-tech-borderDark bg-tech-surfaceLight dark:bg-tech-surfaceDark p-6 blueprint-card text-tech-accentLight dark:text-tech-accentDark">
-                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-2">
-                            <h4 class="font-bold text-lg text-tech-textLight dark:text-tech-textDark">Freelance Full-Stack Dev</h4>
-                            <span class="font-mono text-xs">Apr 2022 - Present</span>
-                        </div>
-                        <div class="font-mono text-sm mb-3">@ Gikunju Creates / Self-Employed</div>
-                        <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-2 list-none font-sans">
-                            <li class="flex gap-2"><i class="ph ph-caret-right mt-1 text-tech-accentLight dark:text-tech-accentDark"></i> Architect custom web/mobile platforms utilizing React, Tailwind, and Supabase for real-time applications.</li>
-                            <li class="flex gap-2"><i class="ph ph-caret-right mt-1 text-tech-accentLight dark:text-tech-accentDark"></i> Author technical content, formulate brand identities, and optimize core web vitals for high performance.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Exp 3 -->
-                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group gsap-fade-up">
-                    <div class="flex items-center justify-center w-10 h-10 rounded border border-tech-borderLight dark:border-tech-borderDark bg-tech-surfaceLight dark:bg-tech-surfaceDark shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 font-mono text-xs">
-                        '21
-                    </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] border border-tech-borderLight dark:border-tech-borderDark bg-tech-surfaceLight dark:bg-tech-surfaceDark p-6 blueprint-card text-tech-accentLight dark:text-tech-accentDark">
-                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-2">
-                            <h4 class="font-bold text-lg text-tech-textLight dark:text-tech-textDark">Co-Founder & Tech Facilitator</h4>
-                            <span class="font-mono text-xs">Oct 2021 - Present</span>
-                        </div>
-                        <div class="font-mono text-sm mb-3">@ Flickstars (KEMU)</div>
-                        <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-2 list-none font-sans">
-                            <li class="flex gap-2"><i class="ph ph-caret-right mt-1 text-tech-accentLight dark:text-tech-accentDark"></i> Host free technical literacy workshops, making tech education accessible to the community.</li>
-                            <li class="flex gap-2"><i class="ph ph-caret-right mt-1 text-tech-accentLight dark:text-tech-accentDark"></i> Provide pro-bono hardware diagnostics, software repair, and IT troubleshooting services.</li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
+    <section class="section work-section" id="work" aria-labelledby="work-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow"><span class="eyebrow-dot"></span> 02 &nbsp; / &nbsp; Selected work</p><h2 id="work-title">A shopfront, a rental desk, a phone app.</h2></div>
+          <p class="section-copy">These projects grew from day-to-day operations: product orders, rent records, receipts, and the admin work that keeps a shop moving.</p>
         </div>
+        <div class="work-grid">
+          <article class="project-card">
+            <div class="project-art project-art--wen" aria-hidden="true"><div class="project-art-copy"><span class="art-kicker">Online retail</span><span class="project-art-title">Wen<br>Appliances</span></div><span class="project-art-index">01</span></div>
+            <div class="project-content">
+              <div class="project-overline"><span>Commerce platform</span><span>Live</span></div><h3>Wen Appliances</h3>
+              <p>A multi-page appliance marketplace with an admin portal, customer support chat, and direct WhatsApp integration.</p>
+              <div class="project-tags"><span>React</span><span>Supabase</span><span>Production</span></div>
+              <a class="project-link" href="https://wenappliances.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Visit the Wen Appliances website (opens in a new tab)">Visit live site <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-art project-art--ruiru" aria-hidden="true"><div class="project-art-copy"><span class="art-kicker">Property operations</span><span class="project-art-title">Ruiru<br>Rentals</span></div><span class="project-art-index">02</span></div>
+            <div class="project-content">
+              <div class="project-overline"><span>Property management</span><span>Live</span></div><h3>Ruiru Rentals Portal</h3>
+              <p>A property management portal for rent and utility billing, receipt generation, maintenance tracking, and separate manager and landlord access.</p>
+              <div class="project-tags"><span>Full-stack</span><span>Auth &amp; RBAC</span><span>Billing workflows</span></div>
+              <a class="project-link" href="https://www.houseapprentals.co.ke/" target="_blank" rel="noopener noreferrer" aria-label="Visit the Ruiru Rentals website (opens in a new tab)">Visit live site <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-art project-art--admin" aria-hidden="true"><div class="project-art-copy"><span class="art-kicker">Android companion</span><span class="project-art-title">Admin<br>Wen</span></div><span class="project-art-index">03</span></div>
+            <div class="project-content">
+              <div class="project-overline"><span>Mobile application</span><span>Android</span></div><h3>Admin Wen</h3>
+              <p>A companion Android app built to handle marketplace administration, packaged and signed for Android deployment.</p>
+              <div class="project-tags"><span>Android Studio</span><span>Mobile</span><span>Signed APK</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-24 border-b border-tech-borderLight dark:border-tech-borderDark relative z-10 bg-tech-bgLight/90 dark:bg-tech-bgDark/90 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="font-mono text-tech-accentLight dark:text-tech-accentDark mb-12 flex items-center gap-2 gsap-fade-up">
-                <i class="ph ph-code"></i> ~/projects/deployed.dir
-            </h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                
-                <!-- Project: Wen Appliances -->
-                <div class="border border-tech-borderLight dark:border-tech-borderDark bg-tech-surfaceLight dark:bg-tech-surfaceDark p-6 flex flex-col blueprint-card gsap-fade-up">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-bold uppercase tracking-wide text-tech-textLight dark:text-tech-textDark">Wen Appliances</h3>
-                        <a href="https://wenappliances.vercel.app" target="_blank" class="text-gray-400 hover:text-tech-accentLight dark:hover:text-tech-accentDark transition-colors"><i class="ph ph-arrow-up-right text-xl"></i></a>
-                    </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-6 flex-grow font-sans">
-                        Fully production, multi-page e-commerce marketplace featuring a hidden admin portal, real-time customer support chat, direct WhatsApp integration, and top-tier SEO architecture.
-                    </p>
-                    <div class="flex flex-wrap gap-2 font-mono text-[10px] uppercase">
-                        <span class="px-2 py-1 border border-tech-borderLight dark:border-tech-borderDark">React</span>
-                        <span class="px-2 py-1 border border-tech-borderLight dark:border-tech-borderDark">Supabase</span>
-                        <span class="px-2 py-1 border border-tech-borderLight dark:border-tech-borderDark">Live Prod Deploy</span>
-                    </div>
-                </div>
-
-                <!-- Project: Ruiru Rentals -->
-                <div class="border border-tech-borderLight dark:border-tech-borderDark bg-tech-surfaceLight dark:bg-tech-surfaceDark p-6 flex flex-col blueprint-card gsap-fade-up delay-100">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-bold uppercase tracking-wide text-tech-textLight dark:text-tech-textDark">Ruiru Rentals Portal</h3>
-                        <a href="https://ruirurentals.co.ke" target="_blank" class="text-gray-400 hover:text-tech-accentLight dark:hover:text-tech-accentDark transition-colors"><i class="ph ph-arrow-up-right text-xl"></i></a>
-                    </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-6 flex-grow font-sans">
-                        Full-stack property management application to automate receipt generation, track utility/rent billing, and log maintenance with distinct Manager/Landlord RBAC.
-                    </p>
-                    <div class="flex flex-wrap gap-2 font-mono text-[10px] uppercase">
-                        <span class="px-2 py-1 border border-tech-borderLight dark:border-tech-borderDark">Full-Stack</span>
-                        <span class="px-2 py-1 border border-tech-borderLight dark:border-tech-borderDark">Auth / RBAC</span>
-                        <span class="px-2 py-1 border border-tech-borderLight dark:border-tech-borderDark">DB Management</span>
-                    </div>
-                </div>
-
-                <!-- Project: Admin Wen -->
-                <div class="border border-tech-borderLight dark:border-tech-borderDark bg-tech-surfaceLight dark:bg-tech-surfaceDark p-6 flex flex-col blueprint-card gsap-fade-up">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-bold uppercase tracking-wide text-tech-textLight dark:text-tech-textDark">Admin Wen (Mobile App)</h3>
-                        <i class="ph ph-android-logo text-xl text-gray-400"></i>
-                    </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-6 flex-grow font-sans">
-                        Companion Android application developed to handle marketplace administrative tasks, compiled via Android Studio and packaged with v2/v3 signatures for Play Store deployment.
-                    </p>
-                    <div class="flex flex-wrap gap-2 font-mono text-[10px] uppercase">
-                        <span class="px-2 py-1 border border-tech-borderLight dark:border-tech-borderDark">Android Studio</span>
-                        <span class="px-2 py-1 border border-tech-borderLight dark:border-tech-borderDark">Mobile Dev</span>
-                        <span class="px-2 py-1 border border-tech-borderLight dark:border-tech-borderDark">APK Signed</span>
-                    </div>
-                </div>
-
-                <!-- Project: Gikunju Creates -->
-                <div class="border border-tech-borderLight dark:border-tech-borderDark bg-tech-surfaceLight dark:bg-tech-surfaceDark p-6 flex flex-col blueprint-card gsap-fade-up delay-100">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-bold uppercase tracking-wide text-tech-textLight dark:text-tech-textDark">Gikunju Creates Portfolio</h3>
-                        <i class="ph ph-cube text-xl text-gray-400"></i>
-                    </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-6 flex-grow font-sans">
-                        High-performance architectural showcase featuring custom 3D mathematical animations, optimized UI, and secure DNS verification via Google Search Console.
-                    </p>
-                    <div class="flex flex-wrap gap-2 font-mono text-[10px] uppercase">
-                        <span class="px-2 py-1 border border-tech-borderLight dark:border-tech-borderDark">Three.js</span>
-                        <span class="px-2 py-1 border border-tech-borderLight dark:border-tech-borderDark">Tailwind</span>
-                        <span class="px-2 py-1 border border-tech-borderLight dark:border-tech-borderDark">DNS Config</span>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Certifications Block -->
-            <div class="mt-20 gsap-fade-up">
-                <h3 class="font-mono text-sm text-tech-accentLight dark:text-tech-accentDark mb-6 uppercase tracking-widest border-b border-tech-borderLight dark:border-tech-borderDark pb-2">Verified Credentials</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 font-mono text-sm">
-                    <!-- Cert 1 -->
-                    <div class="p-4 border border-tech-borderLight dark:border-tech-borderDark hover:bg-tech-surfaceLight dark:hover:bg-tech-surfaceDark transition-colors">
-                        <div class="text-gray-500 mb-2">ID: 10693590</div>
-                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Agile for Complex Projects</div>
-                        <div class="text-tech-accentLight dark:text-tech-accentDark">Simplilearn Skillup</div>
-                    </div>
-                    <!-- Cert 2 -->
-                    <div class="p-4 border border-tech-borderLight dark:border-tech-borderDark hover:bg-tech-surfaceLight dark:hover:bg-tech-surfaceDark transition-colors">
-                        <div class="text-gray-500 mb-2">ID: 10693592</div>
-                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Introduction to Agile</div>
-                        <div class="text-tech-accentLight dark:text-tech-accentDark">Simplilearn Skillup</div>
-                    </div>
-                    <!-- Cert 3 -->
-                    <div class="p-4 border border-tech-borderLight dark:border-tech-borderDark hover:bg-tech-surfaceLight dark:hover:bg-tech-surfaceDark transition-colors">
-                        <div class="text-gray-500 mb-2">ID: 10693509</div>
-                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Machine Learning Using Python</div>
-                        <div class="text-tech-accentLight dark:text-tech-accentDark">Simplilearn Skillup</div>
-                    </div>
-                    <!-- Cert 4 -->
-                    <div class="p-4 border border-tech-borderLight dark:border-tech-borderDark hover:bg-tech-surfaceLight dark:hover:bg-tech-surfaceDark transition-colors">
-                        <div class="text-gray-500 mb-2">ID: 1cd03a22...</div>
-                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Strategic Planning in the AI Age</div>
-                        <div class="text-tech-accentLight dark:text-tech-accentDark">HP LIFE Foundation</div>
-                    </div>
-                    <!-- Cert 5 -->
-                    <div class="p-4 border border-tech-borderLight dark:border-tech-borderDark hover:bg-tech-surfaceLight dark:hover:bg-tech-surfaceDark transition-colors">
-                        <div class="text-gray-500 mb-2">ID: ec6c3dce...</div>
-                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Prompt Like an Engineer</div>
-                        <div class="text-tech-accentLight dark:text-tech-accentDark">Cisco Networking Academy</div>
-                    </div>
-                    <!-- Cert 6 -->
-                    <div class="p-4 border border-tech-borderLight dark:border-tech-borderDark hover:bg-tech-surfaceLight dark:hover:bg-tech-surfaceDark transition-colors">
-                        <div class="text-gray-500 mb-2">ID: 10692664</div>
-                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Intro to Supervised & Unsupervised ML</div>
-                        <div class="text-tech-accentLight dark:text-tech-accentDark">Simplilearn Skillup</div>
-                    </div>
-                    <!-- Cert 7 -->
-                    <div class="p-4 border border-tech-borderLight dark:border-tech-borderDark hover:bg-tech-surfaceLight dark:hover:bg-tech-surfaceDark transition-colors">
-                        <div class="text-gray-500 mb-2">ID: 1bb89b36...</div>
-                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Data Science & Analytics</div>
-                        <div class="text-tech-accentLight dark:text-tech-accentDark">HP LIFE Foundation</div>
-                    </div>
-                    <!-- Cert 8 -->
-                    <div class="p-4 border border-tech-borderLight dark:border-tech-borderDark hover:bg-tech-surfaceLight dark:hover:bg-tech-surfaceDark transition-colors">
-                        <div class="text-gray-500 mb-2">ID: 5f4faf86...</div>
-                        <div class="font-bold text-tech-textLight dark:text-tech-textDark mb-1">Digital Awareness</div>
-                        <div class="text-tech-accentLight dark:text-tech-accentDark">Cisco Networking Academy</div>
-                    </div>
-                </div>
-            </div>
+    <section class="section skills-section" aria-labelledby="skills-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow"><span class="eyebrow-dot"></span> 03 &nbsp; / &nbsp; Tools I use</p><h2 id="skills-title">Tools change with the job.</h2></div>
+          <p class="section-copy">These are the tools I know; I choose what fits the problem instead of forcing every project into the same stack.</p>
         </div>
+        <div class="skills-grid">
+          <article class="skill-card"><span class="skill-index">01 / WEB</span><h3>Frontend</h3><p>React · JavaScript · HTML &amp; CSS · Tailwind · Vite</p></article>
+          <article class="skill-card"><span class="skill-index">02 / DATA</span><h3>Backend</h3><p>Supabase · SQL · Authentication · Role-based access</p></article>
+          <article class="skill-card"><span class="skill-index">03 / ANALYSIS</span><h3>AI &amp; analytics</h3><p>Python · Machine learning · Statistical modeling · Power BI</p></article>
+          <article class="skill-card"><span class="skill-index">04 / SYSTEMS</span><h3>Mobile &amp; support</h3><p>Android Studio · Hardware diagnostics · Network defense</p></article>
+        </div>
+      </div>
     </section>
 
-    <!-- Footer / Contact -->
-    <footer id="contact" class="py-12 relative z-10 bg-tech-bgLight dark:bg-tech-bgDark">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            
-            <div class="font-mono text-sm flex items-center gap-4">
-                <div class="w-10 h-10 img-blend-wrapper rounded-sm border border-tech-borderLight dark:border-tech-borderDark">
-                    <img src="Image/logo.jpg" alt="Logo" class="w-full h-full object-cover img-blend">
-                </div>
-                <div>
-                    <div class="font-bold text-lg mb-1 text-tech-textLight dark:text-tech-textDark">GIKUNJU_CREATES</div>
-                    <div class="text-gray-500">System Architecture & Code</div>
-                </div>
-            </div>
-
-            <div class="flex gap-4 font-mono text-sm">
-                <a href="mailto:pngikunju671@gmail.com" class="border border-tech-borderLight dark:border-tech-borderDark px-4 py-2 hover:bg-tech-surfaceLight dark:hover:bg-tech-surfaceDark hover:text-tech-textLight dark:hover:text-tech-textDark transition-colors flex items-center gap-2 shadow-sm">
-                    <i class="ph ph-envelope-simple"></i> Email
-                </a>
-                <a href="https://wa.me/16039991267" target="_blank" class="border border-tech-borderLight dark:border-tech-borderDark px-4 py-2 hover:bg-tech-surfaceLight dark:hover:bg-tech-surfaceDark hover:text-tech-textLight dark:hover:text-tech-textDark transition-colors flex items-center gap-2 shadow-sm">
-                    <i class="ph ph-whatsapp-logo"></i> Connect
-                </a>
-            </div>
-
+    <section class="section experience-section" id="experience" aria-labelledby="experience-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow"><span class="eyebrow-dot"></span> 04 &nbsp; / &nbsp; Experience</p><h2 id="experience-title">The work around the code.</h2></div>
+          <p class="section-copy">Building products, supporting people, and learning through hands-on work since 2021.</p>
         </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 border-t border-tech-borderLight dark:border-tech-borderDark pt-6 flex justify-between items-center font-mono text-xs text-gray-500">
-            <div>&copy; <span id="year"></span> Peter Ng'ang'a Gikunju. All rights reserved.</div>
-            <div>STATUS: COMPILED</div>
+        <div class="timeline">
+          <article class="role">
+            <div class="role-date">Jun 2026 — Present</div>
+            <div class="role-card"><div class="role-title"><h3>Property Manager &amp; Developer</h3><span class="role-company">Ruiru Rentals</span></div><p>Manage rental operations and billing while developing a portal for receipts, utility tracking, and maintenance requests with manager and landlord access.</p></div>
+          </article>
+          <article class="role">
+            <div class="role-date">Apr 2022 — Present</div>
+            <div class="role-card"><div class="role-title"><h3>Freelance Full-stack Developer</h3><span class="role-company">Gikunju Creates · Self-employed</span></div><p>Plan and build web and mobile products, including e-commerce and property management tools, with a focus on maintainable systems and clear user experiences.</p></div>
+          </article>
+          <article class="role">
+            <div class="role-date">Former role</div>
+            <div class="role-card"><div class="role-title"><h3>Former Member &amp; Tech Workshop Assistant</h3><span class="role-company">Flickstars · KEMU</span></div><p>Supported technology literacy workshops and helped with community hardware diagnostics, software repair, and IT support.</p></div>
+          </article>
         </div>
-    </footer>
 
-    <script>
-        // Set Year
-        document.getElementById('year').textContent = new Date().getFullYear();
+        <details class="credentials">
+          <summary>Certifications <span>8 courses · Simplilearn, HP LIFE &amp; Cisco Networking Academy</span></summary>
+          <div class="credentials-list">
+            <div class="credential"><strong>Agile for Complex Projects</strong><span>Simplilearn SkillUp</span></div>
+            <div class="credential"><strong>Introduction to Agile</strong><span>Simplilearn SkillUp</span></div>
+            <div class="credential"><strong>Machine Learning Using Python</strong><span>Simplilearn SkillUp</span></div>
+            <div class="credential"><strong>Strategic Planning in the AI Age</strong><span>HP LIFE Foundation</span></div>
+            <div class="credential"><strong>Prompt Like an Engineer</strong><span>Cisco Networking Academy</span></div>
+            <div class="credential"><strong>Introduction to Supervised &amp; Unsupervised ML</strong><span>Simplilearn SkillUp</span></div>
+            <div class="credential"><strong>Data Science &amp; Analytics</strong><span>HP LIFE Foundation</span></div>
+            <div class="credential"><strong>Digital Awareness</strong><span>Cisco Networking Academy</span></div>
+          </div>
+        </details>
+      </div>
+    </section>
 
-        // Theme Management
-        const html = document.documentElement;
-        const themeBtnDesktop = document.getElementById('theme-toggle');
-        const themeBtnMobile = document.getElementById('theme-toggle-mobile');
+    <section class="contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="wrap contact-panel">
+        <div><p class="eyebrow"><span class="eyebrow-dot"></span> Get in touch</p><h2 id="contact-title">Working on something practical?</h2><p>Tell me what you’re trying to make easier. I’m always glad to hear about a thoughtful project or collaboration.</p></div>
+        <div class="contact-actions">
+          <a class="button button-primary" href="mailto:pngikunju671@gmail.com">Email Peter <span class="button-arrow" aria-hidden="true">↗</span></a>
+          <a class="button button-outline" href="https://wa.me/16039991267" target="_blank" rel="noopener noreferrer">WhatsApp <span class="button-arrow" aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
 
-        function toggleTheme() {
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-                updateThreeColors(false);
-            } else {
-                html.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-                updateThreeColors(true);
-            }
-        }
+  <footer class="site-footer">
+    <div class="wrap footer-row"><span><span class="footer-brand">Peter Gikunju</span> · Built in Meru, Kenya</span><span><span id="year">2026</span></span></div>
+  </footer>
 
-        themeBtnDesktop.addEventListener('click', toggleTheme);
-        themeBtnMobile.addEventListener('click', toggleTheme);
+  <script>
+    const root = document.documentElement;
+    const themeToggle = document.getElementById('theme-toggle');
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
 
-        // Mobile Menu
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-        });
+    function syncThemeButton() {
+      const isDark = root.dataset.theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', String(isDark));
+      themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+      themeToggle.title = isDark ? 'Switch to light theme' : 'Switch to dark theme';
+    }
 
-        // --- Three.js Math/Engineering Wireframe Topology ---
-        let scene, camera, renderer, terrain;
-        const clock = new THREE.Clock();
+    syncThemeButton();
+    themeToggle.addEventListener('click', () => {
+      const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = nextTheme;
+      try { localStorage.setItem('theme', nextTheme); } catch (_) {}
+      syncThemeButton();
+    });
 
-        function updateThreeColors(isDark) {
-            if (!terrain) return;
-            // Dull green/sage for dark mode, darker grey/green for light mode
-            const color = isDark ? 0x7a8b73 : 0x5c6b55; 
-            terrain.material.color.setHex(color);
-            scene.fog.color.setHex(isDark ? 0x111111 : 0xf4f4f0);
-            scene.background.setHex(isDark ? 0x111111 : 0xf4f4f0);
-        }
+    menuToggle.addEventListener('click', () => {
+      const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Open navigation' : 'Close navigation');
+      mobileMenu.hidden = isOpen;
+    });
 
-        function initThree() {
-            const container = document.getElementById('canvas-container');
-            const isDark = html.classList.contains('dark');
-            const bgColor = isDark ? 0x111111 : 0xf4f4f0;
+    mobileMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileMenu.hidden = true;
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Open navigation');
+      });
+    });
 
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(bgColor);
-            scene.fog = new THREE.Fog(bgColor, 20, 100); // Gradual fade out
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !mobileMenu.hidden) {
+        mobileMenu.hidden = true;
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Open navigation');
+        menuToggle.focus();
+      }
+    });
 
-            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.set(0, 15, 30);
-            camera.lookAt(0, 0, 0);
-
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            container.appendChild(renderer.domElement);
-
-            // Create a plane geometry with many segments to manipulate vertices
-            const geometry = new THREE.PlaneGeometry(150, 150, 60, 60);
-            // Rotate so it lays flat
-            geometry.rotateX(-Math.PI / 2);
-
-            const materialColor = isDark ? 0x7a8b73 : 0x5c6b55;
-            const material = new THREE.MeshBasicMaterial({ 
-                color: materialColor, 
-                wireframe: true,
-                transparent: true,
-                opacity: 0.3
-            });
-
-            terrain = new THREE.Mesh(geometry, material);
-            scene.add(terrain);
-
-            // Store original Y positions for animation
-            const posAttr = terrain.geometry.attributes.position;
-            terrain.geometry.userData.originalY = [];
-            for (let i = 0; i < posAttr.count; i++) {
-                terrain.geometry.userData.originalY.push(posAttr.getY(i));
-            }
-
-            // Mouse Interaction for subtle camera movement
-            let mouseX = 0;
-            let mouseY = 0;
-            document.addEventListener('mousemove', (e) => {
-                mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-                mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-            });
-
-            function animate() {
-                requestAnimationFrame(animate);
-                
-                const elapsedTime = clock.getElapsedTime();
-                const pos = terrain.geometry.attributes.position;
-                
-                // Mathematical wave simulation (sine/cosine topology)
-                for (let i = 0; i < pos.count; i++) {
-                    const x = pos.getX(i);
-                    const z = pos.getZ(i);
-                    // Combine sine waves to create a complex mathematical surface
-                    const y = Math.sin(x * 0.1 + elapsedTime * 0.5) * 2 + 
-                              Math.cos(z * 0.1 + elapsedTime * 0.3) * 2;
-                    pos.setY(i, y);
-                }
-                pos.needsUpdate = true;
-
-                // Subtle camera drift based on mouse
-                camera.position.x += (mouseX * 5 - camera.position.x) * 0.05;
-                // Keep looking mostly forward
-                camera.lookAt(0, 5, -20); 
-
-                renderer.render(scene, camera);
-            }
-            animate();
-
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-        }
-
-        // --- GSAP and Boot ---
-        window.addEventListener('load', () => {
-            // Loader sequence
-            const loaderBar = document.getElementById('loader-bar');
-            const loader = document.getElementById('loader');
-            
-            gsap.to(loaderBar, {
-                width: '100%',
-                duration: 1.5,
-                ease: 'power2.inOut',
-                onComplete: () => {
-                    gsap.to(loader, {
-                        opacity: 0,
-                        duration: 0.5,
-                        onComplete: () => {
-                            loader.style.display = 'none';
-                            initThree();
-                            initGSAP();
-                        }
-                    });
-                }
-            });
-
-            function initGSAP() {
-                gsap.registerPlugin(ScrollTrigger);
-                
-                gsap.utils.toArray('.gsap-fade-up').forEach((el, index) => {
-                    gsap.from(el, {
-                        scrollTrigger: {
-                            trigger: el,
-                            start: "top 85%",
-                            toggleActions: "play none none reverse"
-                        },
-                        y: 30,
-                        opacity: 0,
-                        duration: 0.6,
-                        ease: "power2.out",
-                        delay: el.classList.contains('delay-100') ? 0.2 : 0
-                    });
-                });
-            }
-        });
-    </script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
