@@ -212,6 +212,23 @@
     .project-tags span:first-child { padding-left: 0; border-left: 0; }
     .project-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; color: var(--blue-dark); font-size: .82rem; font-weight: 750; text-decoration: none; }
     .project-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .project-case-study {
+      grid-column: 1 / -1; display: grid; grid-template-columns: minmax(190px,.7fr) minmax(0,1.3fr);
+      gap: clamp(28px,5vw,64px); padding: 30px clamp(24px,5vw,58px) 34px;
+      border-top: 1px solid var(--line); background: var(--page);
+    }
+    .case-study-heading .eyebrow { margin-bottom: 12px; }
+    .case-study-heading h4 { max-width: 300px; margin: 0; font-family: Georgia,"Times New Roman",serif; font-size: clamp(1.55rem,2.5vw,2.2rem); font-weight: 500; line-height: 1.12; letter-spacing: -.035em; }
+    .case-study-copy > p { max-width: 690px; margin: 0; color: var(--muted); font-size: .9rem; }
+    .case-study-map { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); margin-top: 24px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .case-study-map > div { min-height: 92px; padding: 14px 14px 13px 0; }
+    .case-study-map > div + div { padding-left: 14px; border-left: 1px solid var(--line); }
+    .case-study-index { display: block; margin-bottom: 11px; color: var(--blue); font-size: .66rem; font-weight: 800; letter-spacing: .1em; }
+    .case-study-map strong { display: block; font-size: .78rem; line-height: 1.4; }
+    .case-study-meta { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px 24px; margin: 20px 0 0; }
+    .case-study-meta div { padding-top: 11px; border-top: 1px solid var(--line); }
+    .case-study-meta dt { color: var(--blue-dark); font-size: .66rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+    .case-study-meta dd { margin: 4px 0 0; color: var(--muted); font-size: .8rem; }
 
     .skills-section { border-top: 1px solid var(--line); }
     .skills-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px; }
@@ -255,6 +272,8 @@
     .site-footer { padding: 26px 0 34px; border-top: 1px solid var(--line); }
     .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; color: var(--muted); font-size: .77rem; }
     .footer-brand { color: var(--ink); font-weight: 750; }
+    .footer-row a { color: var(--muted); text-decoration: none; }
+    .footer-row a:hover { color: var(--blue-dark); text-decoration: underline; text-underline-offset: 4px; }
 
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: minmax(0,1.1fr) minmax(260px,.8fr); gap: 44px; }
@@ -262,6 +281,7 @@
       .skills-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
       .credentials-list { grid-template-columns: repeat(2,minmax(0,1fr)); }
       .contact-panel { align-items: start; flex-direction: column; }
+      .project-case-study { grid-template-columns: 1fr; gap: 20px; }
     }
     @media (max-width: 700px) {
       html { scroll-padding-top: 76px; }
@@ -286,6 +306,10 @@
       .project-card { grid-template-columns: 1fr; }
       .project-art { min-height: 180px; border-right: 0; border-bottom: 1px solid var(--line); }
       .project-content { padding: 23px; }
+      .project-case-study { padding: 23px; }
+      .case-study-map { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .case-study-map > div:nth-child(3) { padding-left: 0; border-left: 0; }
+      .case-study-map > div:nth-child(n+3) { padding-top: 15px; border-top: 1px solid var(--line); }
       .timeline::before { left: 4px; }
       .role { grid-template-columns: 1fr; gap: 7px; padding-left: 25px; }
       .role::before { left: -1px; }
@@ -407,6 +431,25 @@
               <div class="project-tags"><span>Full-stack</span><span>Auth &amp; RBAC</span><span>Billing workflows</span></div>
               <a class="project-link" href="https://www.houseapprentals.co.ke/" target="_blank" rel="noopener noreferrer" aria-label="Visit the Ruiru Rentals website (opens in a new tab)">Visit live site <span aria-hidden="true">↗</span></a>
             </div>
+            <section class="project-case-study" aria-labelledby="ruiru-case-study-title">
+              <div class="case-study-heading">
+                <p class="eyebrow"><span class="eyebrow-dot"></span> Notes from the rental desk</p>
+                <h4 id="ruiru-case-study-title">Shaped by the work on site.</h4>
+              </div>
+              <div class="case-study-copy">
+                <p>I manage rental operations while developing the portal, so its scope comes from work I handle directly: rent and utility billing, receipts, and maintenance tracking. Managers and landlords have separate access to the parts of the process they oversee.</p>
+                <div class="case-study-map" aria-label="Ruiru Rentals portal areas">
+                  <div><span class="case-study-index">01 / BILLING</span><strong>Rent &amp; utilities</strong></div>
+                  <div><span class="case-study-index">02 / RECORDS</span><strong>Receipt generation</strong></div>
+                  <div><span class="case-study-index">03 / PROPERTY</span><strong>Maintenance tracking</strong></div>
+                  <div><span class="case-study-index">04 / ACCESS</span><strong>Manager &amp; landlord roles</strong></div>
+                </div>
+                <dl class="case-study-meta">
+                  <div><dt>My role</dt><dd>Property manager &amp; developer</dd></div>
+                  <div><dt>Project</dt><dd>Live property operations portal</dd></div>
+                </dl>
+              </div>
+            </section>
           </article>
 
           <article class="project-card">
@@ -485,7 +528,7 @@
   </main>
 
   <footer class="site-footer">
-    <div class="wrap footer-row"><span><span class="footer-brand">Peter Gikunju</span> · Built in Meru, Kenya</span><span><span id="year">2026</span></span></div>
+    <div class="wrap footer-row"><span><span class="footer-brand">Peter Gikunju</span> · Built in Meru, Kenya</span><span><a href="https://github.com/chainz254" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a> · <span id="year">2026</span></span></div>
   </footer>
 
   <script>
