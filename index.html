@@ -231,9 +231,45 @@
     .preview-button:hover { border-color: var(--blue); color: var(--blue-dark); }
     .preview-open-link { color: var(--blue-dark); font-size: .78rem; font-weight: 750; text-decoration: none; }
     .preview-open-link:hover { text-decoration: underline; text-underline-offset: 4px; }
-    .project-preview-frame { margin-top: 16px; overflow: hidden; border: 1px solid var(--line); background: #fff; }
-    .project-preview-frame[hidden] { display: none; }
-    .project-preview-frame iframe { display: block; width: 100%; height: 610px; border: 0; background: #fff; }
+    .rental-demo { margin-top: 18px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+    .rental-demo[hidden] { display: none; }
+    .demo-topbar { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--surface-soft); }
+    .demo-brand { display: flex; align-items: center; gap: 10px; font-size: .78rem; font-weight: 800; }
+    .demo-brand-mark { display: grid; width: 28px; height: 28px; place-items: center; border: 1px solid var(--line); font-family: Georgia,serif; }
+    .demo-sample-label { padding: 4px 8px; border: 1px solid var(--line); color: var(--muted); font-size: .62rem; font-weight: 800; letter-spacing: .1em; }
+    .demo-layout { display: grid; grid-template-columns: 180px minmax(0,1fr); min-height: 390px; }
+    .demo-sidebar { padding: 19px 12px; border-right: 1px solid var(--line); background: var(--page); }
+    .demo-sidebar-label { margin: 0 0 12px 8px; color: var(--muted); font-size: .63rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .demo-nav { display: grid; gap: 4px; }
+    .demo-nav button { width: 100%; padding: 9px 10px; border: 1px solid transparent; background: transparent; color: var(--muted); text-align: left; font-size: .76rem; font-weight: 700; cursor: pointer; }
+    .demo-nav button:hover, .demo-nav button[aria-pressed="true"] { border-color: var(--line); background: var(--surface); color: var(--ink); }
+    .demo-main { min-width: 0; padding: 20px; }
+    .demo-main-heading { display: flex; align-items: start; justify-content: space-between; gap: 15px; margin-bottom: 17px; }
+    .demo-main-heading h5 { margin: 0; font-size: 1.1rem; letter-spacing: -.025em; }
+    .demo-main-heading p { margin: 3px 0 0; color: var(--muted); font-size: .72rem; }
+    .demo-summary { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 9px; margin-bottom: 18px; }
+    .demo-stat { min-width: 0; padding: 11px; border: 1px solid var(--line); }
+    .demo-stat span { display: block; color: var(--muted); font-size: .62rem; line-height: 1.45; }
+    .demo-stat strong { display: block; margin-top: 5px; font-size: .9rem; }
+    .demo-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 10px; font-size: .78rem; }
+    .demo-properties { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+    .demo-property { padding: 12px; border: 1px solid var(--line); }
+    .demo-property strong { display: block; font-size: .76rem; }
+    .demo-property span { display: block; margin-top: 3px; color: var(--muted); font-size: .68rem; }
+    .demo-table-wrap { width: 100%; overflow-x: auto; border: 1px solid var(--line); }
+    .demo-table { width: 100%; border-collapse: collapse; text-align: left; font-size: .7rem; }
+    .demo-table th, .demo-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+    .demo-table th { background: var(--page); color: var(--muted); font-size: .62rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+    .demo-table tr:last-child td { border-bottom: 0; }
+    .demo-status { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); }
+    .demo-status::before { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); content: ""; }
+    .demo-status--due::before, .demo-status--open::before { background: var(--lime); }
+    .demo-action { padding: 5px 8px; border: 1px solid var(--line); background: transparent; color: var(--ink); font-size: .66rem; font-weight: 700; cursor: pointer; }
+    .demo-action:hover { border-color: var(--blue); }
+    .demo-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+    .demo-search { width: min(100%,240px); min-height: 34px; padding: 6px 9px; border: 1px solid var(--line); background: var(--page); color: var(--ink); font: inherit; font-size: .7rem; }
+    .demo-note { margin: 12px 0 0; color: var(--muted); font-size: .66rem; }
+    .demo-empty { padding: 22px 12px; color: var(--muted); text-align: center; font-size: .74rem; }
     .preview-note { margin: 10px 0 0; color: var(--muted); font-size: .72rem; }
     .project-case-study {
       grid-column: 1 / -1; display: grid; grid-template-columns: minmax(190px,.7fr) minmax(0,1.3fr);
@@ -332,7 +368,13 @@
       .project-content { padding: 23px; }
       .project-preview { padding: 20px 23px 23px; }
       .project-preview-actions { gap: 12px; }
-      .project-preview-frame iframe { height: 540px; }
+      .demo-layout { grid-template-columns: 1fr; }
+      .demo-sidebar { padding: 10px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .demo-sidebar-label { margin-bottom: 7px; }
+      .demo-nav { grid-template-columns: repeat(4,minmax(0,1fr)); }
+      .demo-nav button { padding: 8px 5px; text-align: center; font-size: .66rem; }
+      .demo-main { padding: 14px; }
+      .demo-summary { grid-template-columns: repeat(2,minmax(0,1fr)); }
       .project-case-study { padding: 23px; }
       .case-study-map { grid-template-columns: repeat(2,minmax(0,1fr)); }
       .case-study-map > div:nth-child(3) { padding-left: 0; border-left: 0; }
@@ -461,16 +503,42 @@
             <div class="project-preview" aria-labelledby="ruiru-preview-title">
               <div class="project-preview-head">
                 <div>
-                  <h4 class="project-preview-title" id="ruiru-preview-title">Live portal preview</h4>
-                  <p class="project-preview-copy">Load the current Ruiru Rentals site here, or open it in a separate tab.</p>
+                  <h4 class="project-preview-title" id="ruiru-preview-title">Try the rental desk demo</h4>
+                  <p class="project-preview-copy">Explore a small interactive sample. Names, units, and balances are fictional.</p>
                 </div>
                 <div class="project-preview-actions">
-                  <button class="preview-button" id="load-ruiru-preview" type="button" aria-controls="ruiru-preview-frame" aria-expanded="false">Load live preview</button>
-                  <a class="preview-open-link" href="https://www.houseapprentals.co.ke/" target="_blank" rel="noopener noreferrer">Open in new tab <span aria-hidden="true">↗</span></a>
+                  <button class="preview-button" id="toggle-ruiru-demo" type="button" aria-controls="ruiru-demo" aria-expanded="false">Open interactive demo</button>
+                  <a class="preview-open-link" href="https://www.houseapprentals.co.ke/" target="_blank" rel="noopener noreferrer">Visit live portal <span aria-hidden="true">↗</span></a>
                 </div>
               </div>
-              <div class="project-preview-frame" id="ruiru-preview-frame" hidden></div>
-              <p class="preview-note">The preview loads only when you choose it. Some portal actions may require signing in.</p>
+              <div class="rental-demo" id="ruiru-demo" hidden>
+                <div class="demo-topbar">
+                  <div class="demo-brand"><span class="demo-brand-mark" aria-hidden="true">R</span><span>Rental desk <span class="project-preview-copy">/ sample workspace</span></span></div>
+                  <span class="demo-sample-label">FICTIONAL DATA</span>
+                </div>
+                <div class="demo-layout">
+                  <aside class="demo-sidebar">
+                    <p class="demo-sidebar-label">Sample screens</p>
+                    <nav class="demo-nav" aria-label="Rental demo screens">
+                      <button type="button" data-demo-view="overview" aria-pressed="true">Overview</button>
+                      <button type="button" data-demo-view="tenants" aria-pressed="false">Tenants</button>
+                      <button type="button" data-demo-view="payments" aria-pressed="false">Payments</button>
+                      <button type="button" data-demo-view="maintenance" aria-pressed="false">Repairs</button>
+                    </nav>
+                  </aside>
+                  <div class="demo-main">
+                    <div class="demo-main-heading">
+                      <div><h5 id="demo-view-title">Overview</h5><p id="demo-view-description">A quick look at the sample rental records.</p></div>
+                    </div>
+                    <div class="demo-summary" id="demo-summary" aria-label="Sample workspace totals"></div>
+                    <div class="demo-toolbar" id="demo-toolbar" hidden>
+                      <input class="demo-search" id="demo-search" type="search" placeholder="Search sample records" aria-label="Search sample records">
+                    </div>
+                    <div id="demo-content" aria-live="polite"></div>
+                  </div>
+                </div>
+              </div>
+              <p class="preview-note">This is a portfolio demo, not a connection to the live service. Actions change fictional records in this page only; reloading resets them.</p>
             </div>
             <section class="project-case-study" aria-labelledby="ruiru-case-study-title">
               <div class="case-study-heading">
@@ -621,22 +689,132 @@
 
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    const loadRuiruPreview = document.getElementById('load-ruiru-preview');
-    const ruiruPreviewFrame = document.getElementById('ruiru-preview-frame');
-    loadRuiruPreview.addEventListener('click', () => {
-      let frame = ruiruPreviewFrame.querySelector('iframe');
-      if (!frame) {
-        frame = document.createElement('iframe');
-        frame.title = 'Live Ruiru Rentals property operations portal preview';
-        frame.loading = 'eager';
-        frame.referrerPolicy = 'strict-origin-when-cross-origin';
-        frame.setAttribute('sandbox', 'allow-scripts allow-forms allow-same-origin allow-popups');
-        ruiruPreviewFrame.append(frame);
+    const toggleRuiruDemo = document.getElementById('toggle-ruiru-demo');
+    const ruiruDemo = document.getElementById('ruiru-demo');
+    const demoContent = document.getElementById('demo-content');
+    const demoSummary = document.getElementById('demo-summary');
+    const demoSearch = document.getElementById('demo-search');
+    const demoToolbar = document.getElementById('demo-toolbar');
+    const demoViewTitle = document.getElementById('demo-view-title');
+    const demoViewDescription = document.getElementById('demo-view-description');
+    const demoTenants = [
+      { name: 'Amina Wanjiku', property: 'Greenview Court', unit: 'A-03', rent: 18500, paid: 18500 },
+      { name: 'Brian Mwangi', property: 'Greenview Court', unit: 'A-04', rent: 24000, paid: 14000 },
+      { name: 'Njeri Kamau', property: 'Mwihoko Flats', unit: 'B-02', rent: 18500, paid: 0 },
+      { name: 'David Mutua', property: 'Mwihoko Flats', unit: 'B-03', rent: 15000, paid: 15000 }
+    ];
+    const demoRepairs = [
+      { ref: 'S-104', issue: 'Kitchen tap leak', property: 'Greenview Court', unit: 'A-03', reported: '12 Oct', status: 'Open' },
+      { ref: 'S-105', issue: 'Corridor light out', property: 'Mwihoko Flats', unit: 'B-02', reported: '14 Oct', status: 'In progress' },
+      { ref: 'S-106', issue: 'Door lock adjustment', property: 'Greenview Court', unit: 'A-04', reported: '16 Oct', status: 'Open' }
+    ];
+    const demoActivity = [
+      { when: 'Today', text: 'Sample payment received', detail: 'Amina Wanjiku · Greenview Court A-03' },
+      { when: 'Yesterday', text: 'Repair request opened', detail: 'Kitchen tap leak · Greenview Court A-03' },
+      { when: '16 Oct', text: 'Sample rent balance updated', detail: 'Brian Mwangi · Greenview Court A-04' }
+    ];
+    const demoViews = {
+      overview: ['Overview', 'A quick look at the sample rental records.'],
+      tenants: ['Tenants', 'Fictional residents and their sample account balances.'],
+      payments: ['Payments', 'A month-end view of fictional rent charges and receipts.'],
+      maintenance: ['Repairs', 'Sample maintenance requests and their current status.']
+    };
+    let activeDemoView = 'overview';
+    const demoMoney = (amount) => `KES ${new Intl.NumberFormat('en-KE').format(amount)}`;
+    const demoBalance = (tenant) => Math.max(0, tenant.rent - tenant.paid);
+    const statusMarkup = (status, extraClass = '') => `<span class="demo-status ${extraClass}">${status}</span>`;
+
+    function updateDemoSummary() {
+      const billed = demoTenants.reduce((sum, tenant) => sum + tenant.rent, 0);
+      const received = demoTenants.reduce((sum, tenant) => sum + tenant.paid, 0);
+      const due = demoTenants.reduce((sum, tenant) => sum + demoBalance(tenant), 0);
+      demoSummary.innerHTML = [
+        ['Sample tenants', demoTenants.length],
+        ['Rent billed', demoMoney(billed)],
+        ['Received', demoMoney(received)],
+        ['Balance due', demoMoney(due)]
+      ].map(([label, value]) => `<div class="demo-stat"><span>${label}</span><strong>${value}</strong></div>`).join('');
+    }
+
+    function renderDemoContent() {
+      const query = demoSearch.value.trim().toLowerCase();
+      const matches = (record) => Object.values(record).join(' ').toLowerCase().includes(query);
+      if (activeDemoView === 'overview') {
+        const recent = demoActivity.slice(0, 3).map((item) => `<tr><td>${item.when}</td><td>${item.text}</td><td>${item.detail}</td></tr>`).join('');
+        demoContent.innerHTML = `
+          <h6 class="demo-section-heading">Sample properties <span class="demo-sample-label">2 LOCATIONS</span></h6>
+          <div class="demo-properties">
+            <div class="demo-property"><strong>Greenview Court</strong><span>2 fictional tenant records · Ruiru</span></div>
+            <div class="demo-property"><strong>Mwihoko Flats</strong><span>2 fictional tenant records · Ruiru</span></div>
+          </div>
+          <h6 class="demo-section-heading" style="margin-top:18px">Recent sample activity</h6>
+          <div class="demo-table-wrap"><table class="demo-table"><thead><tr><th>When</th><th>Activity</th><th>Sample record</th></tr></thead><tbody>${recent}</tbody></table></div>`;
+        return;
       }
-      frame.src = 'https://www.houseapprentals.co.ke/';
-      ruiruPreviewFrame.hidden = false;
-      loadRuiruPreview.setAttribute('aria-expanded', 'true');
-      loadRuiruPreview.textContent = 'Reload live preview';
+      if (activeDemoView === 'tenants' || activeDemoView === 'payments') {
+        const rows = demoTenants.map((tenant, index) => ({ tenant, index })).filter(({ tenant }) => matches(tenant)).map(({ tenant, index }) => {
+          const balance = demoBalance(tenant);
+          if (activeDemoView === 'tenants') {
+            return `<tr><td>${tenant.name}</td><td>${tenant.property} · ${tenant.unit}</td><td>${demoMoney(tenant.rent)}</td><td>${demoMoney(balance)}</td><td>${balance ? statusMarkup('Balance due', 'demo-status--due') : statusMarkup('Up to date')}</td></tr>`;
+          }
+          const action = balance ? `<button class="demo-action" type="button" data-demo-action="settle" data-demo-index="${index}">Settle sample balance</button>` : statusMarkup('Paid');
+          return `<tr><td>${tenant.name}</td><td>${tenant.property} · ${tenant.unit}</td><td>${demoMoney(tenant.rent)}</td><td>${demoMoney(tenant.paid)}</td><td>${demoMoney(balance)}</td><td>${action}</td></tr>`;
+        }).join('');
+        const headings = activeDemoView === 'tenants'
+          ? '<tr><th>Tenant</th><th>Property · unit</th><th>Rent</th><th>Balance</th><th>Account</th></tr>'
+          : '<tr><th>Tenant</th><th>Property · unit</th><th>Billed</th><th>Received</th><th>Due</th><th>Demo action</th></tr>';
+        demoContent.innerHTML = `<div class="demo-table-wrap"><table class="demo-table"><thead>${headings}</thead><tbody>${rows || `<tr><td colspan="6"><div class="demo-empty">No sample records match that search.</div></td></tr>`}</tbody></table></div>`;
+        return;
+      }
+      const statusOrder = ['Open', 'In progress', 'Closed'];
+      const rows = demoRepairs.map((repair, index) => ({ repair, index })).filter(({ repair }) => matches(repair)).map(({ repair, index }) => {
+        const next = statusOrder[(statusOrder.indexOf(repair.status) + 1) % statusOrder.length];
+        const cssClass = repair.status === 'Open' ? 'demo-status--open' : '';
+        return `<tr><td>${repair.ref}</td><td>${repair.issue}</td><td>${repair.property} · ${repair.unit}</td><td>${repair.reported}</td><td>${statusMarkup(repair.status, cssClass)}</td><td><button class="demo-action" type="button" data-demo-action="advance-repair" data-demo-index="${index}">Set to ${next.toLowerCase()}</button></td></tr>`;
+      }).join('');
+      demoContent.innerHTML = `<div class="demo-table-wrap"><table class="demo-table"><thead><tr><th>Ref</th><th>Issue</th><th>Property · unit</th><th>Reported</th><th>Status</th><th>Demo action</th></tr></thead><tbody>${rows || '<tr><td colspan="6"><div class="demo-empty">No sample records match that search.</div></td></tr>'}</tbody></table></div>`;
+    }
+
+    function renderDemo(view) {
+      activeDemoView = view;
+      const [title, description] = demoViews[view];
+      demoViewTitle.textContent = title;
+      demoViewDescription.textContent = description;
+      demoToolbar.hidden = view === 'overview';
+      demoSearch.value = '';
+      document.querySelectorAll('[data-demo-view]').forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.demoView === view));
+      });
+      updateDemoSummary();
+      renderDemoContent();
+    }
+
+    toggleRuiruDemo.addEventListener('click', () => {
+      const isOpening = ruiruDemo.hidden;
+      ruiruDemo.hidden = !isOpening;
+      toggleRuiruDemo.setAttribute('aria-expanded', String(isOpening));
+      toggleRuiruDemo.textContent = isOpening ? 'Close demo' : 'Open interactive demo';
+      if (isOpening) renderDemo('overview');
+    });
+    document.querySelectorAll('[data-demo-view]').forEach((button) => {
+      button.addEventListener('click', () => renderDemo(button.dataset.demoView));
+    });
+    demoSearch.addEventListener('input', renderDemoContent);
+    demoContent.addEventListener('click', (event) => {
+      const action = event.target.closest('[data-demo-action]');
+      if (!action) return;
+      const index = Number(action.dataset.demoIndex);
+      if (action.dataset.demoAction === 'settle') {
+        const tenant = demoTenants[index];
+        tenant.paid = tenant.rent;
+        demoActivity.unshift({ when: 'Just now', text: 'Demo payment marked paid', detail: `${tenant.name} · ${tenant.property} ${tenant.unit}` });
+      } else if (action.dataset.demoAction === 'advance-repair') {
+        const repair = demoRepairs[index];
+        const statusOrder = ['Open', 'In progress', 'Closed'];
+        repair.status = statusOrder[(statusOrder.indexOf(repair.status) + 1) % statusOrder.length];
+      }
+      updateDemoSummary();
+      renderDemoContent();
     });
   </script>
 </body>
