@@ -40,6 +40,10 @@
       "jobTitle": "Full-stack developer",
       "description": "Full-stack developer in Meru, Kenya, building web and mobile tools for e-commerce, rental management, and everyday business operations.",
       "image": "https://gikunjucreates.work.gd/Image/portrait.jpg",
+      "sameAs": [
+        "https://www.linkedin.com/in/gikunjucreates/",
+        "https://www.credly.com/users/peter-ng-ang-a-gikunju/badges/credly"
+      ],
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Meru",
@@ -212,6 +216,25 @@
     .project-tags span:first-child { padding-left: 0; border-left: 0; }
     .project-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; color: var(--blue-dark); font-size: .82rem; font-weight: 750; text-decoration: none; }
     .project-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .project-preview {
+      grid-column: 1 / -1; padding: 20px clamp(24px,5vw,58px) 24px;
+      border-top: 1px solid var(--line); background: var(--page);
+    }
+    .project-preview-head { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .project-preview-title { margin: 0; font-size: .9rem; font-weight: 750; }
+    .project-preview-copy { margin: 3px 0 0; color: var(--muted); font-size: .76rem; }
+    .project-preview-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+    .preview-button {
+      min-height: 42px; padding: 0 15px; border: 1px solid var(--line); border-radius: 0;
+      background: var(--surface); color: var(--ink); font-size: .78rem; font-weight: 750; cursor: pointer;
+    }
+    .preview-button:hover { border-color: var(--blue); color: var(--blue-dark); }
+    .preview-open-link { color: var(--blue-dark); font-size: .78rem; font-weight: 750; text-decoration: none; }
+    .preview-open-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .project-preview-frame { margin-top: 16px; overflow: hidden; border: 1px solid var(--line); background: #fff; }
+    .project-preview-frame[hidden] { display: none; }
+    .project-preview-frame iframe { display: block; width: 100%; height: 610px; border: 0; background: #fff; }
+    .preview-note { margin: 10px 0 0; color: var(--muted); font-size: .72rem; }
     .project-case-study {
       grid-column: 1 / -1; display: grid; grid-template-columns: minmax(190px,.7fr) minmax(0,1.3fr);
       gap: clamp(28px,5vw,64px); padding: 30px clamp(24px,5vw,58px) 34px;
@@ -282,6 +305,7 @@
       .credentials-list { grid-template-columns: repeat(2,minmax(0,1fr)); }
       .contact-panel { align-items: start; flex-direction: column; }
       .project-case-study { grid-template-columns: 1fr; gap: 20px; }
+      .project-preview-head { align-items: start; flex-direction: column; }
     }
     @media (max-width: 700px) {
       html { scroll-padding-top: 76px; }
@@ -306,6 +330,9 @@
       .project-card { grid-template-columns: 1fr; }
       .project-art { min-height: 180px; border-right: 0; border-bottom: 1px solid var(--line); }
       .project-content { padding: 23px; }
+      .project-preview { padding: 20px 23px 23px; }
+      .project-preview-actions { gap: 12px; }
+      .project-preview-frame iframe { height: 540px; }
       .project-case-study { padding: 23px; }
       .case-study-map { grid-template-columns: repeat(2,minmax(0,1fr)); }
       .case-study-map > div:nth-child(3) { padding-left: 0; border-left: 0; }
@@ -431,6 +458,20 @@
               <div class="project-tags"><span>Full-stack</span><span>Auth &amp; RBAC</span><span>Billing workflows</span></div>
               <a class="project-link" href="https://www.houseapprentals.co.ke/" target="_blank" rel="noopener noreferrer" aria-label="Visit the Ruiru Rentals website (opens in a new tab)">Visit live site <span aria-hidden="true">↗</span></a>
             </div>
+            <div class="project-preview" aria-labelledby="ruiru-preview-title">
+              <div class="project-preview-head">
+                <div>
+                  <h4 class="project-preview-title" id="ruiru-preview-title">Live portal preview</h4>
+                  <p class="project-preview-copy">Load the current Ruiru Rentals site here, or open it in a separate tab.</p>
+                </div>
+                <div class="project-preview-actions">
+                  <button class="preview-button" id="load-ruiru-preview" type="button" aria-controls="ruiru-preview-frame" aria-expanded="false">Load live preview</button>
+                  <a class="preview-open-link" href="https://www.houseapprentals.co.ke/" target="_blank" rel="noopener noreferrer">Open in new tab <span aria-hidden="true">↗</span></a>
+                </div>
+              </div>
+              <div class="project-preview-frame" id="ruiru-preview-frame" hidden></div>
+              <p class="preview-note">The preview loads only when you choose it. Some portal actions may require signing in.</p>
+            </div>
             <section class="project-case-study" aria-labelledby="ruiru-case-study-title">
               <div class="case-study-heading">
                 <p class="eyebrow"><span class="eyebrow-dot"></span> Notes from the rental desk</p>
@@ -512,6 +553,7 @@
             <div class="credential"><strong>Data Science &amp; Analytics</strong><span>HP LIFE Foundation</span></div>
             <div class="credential"><strong>Digital Awareness</strong><span>Cisco Networking Academy</span></div>
           </div>
+          <a class="project-link" href="https://www.credly.com/users/peter-ng-ang-a-gikunju/badges/credly" target="_blank" rel="noopener noreferrer">View verified badges on Credly <span aria-hidden="true">↗</span></a>
         </details>
       </div>
     </section>
@@ -522,13 +564,14 @@
         <div class="contact-actions">
           <a class="button button-primary" href="mailto:pngikunju671@gmail.com">Email Peter <span class="button-arrow" aria-hidden="true">↗</span></a>
           <a class="button button-outline" href="https://wa.me/16039991267" target="_blank" rel="noopener noreferrer">WhatsApp <span class="button-arrow" aria-hidden="true">↗</span></a>
+          <a class="button button-outline" href="https://www.linkedin.com/in/gikunjucreates/" target="_blank" rel="noopener noreferrer">LinkedIn <span class="button-arrow" aria-hidden="true">↗</span></a>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="wrap footer-row"><span><span class="footer-brand">Peter Gikunju</span> · Built in Meru, Kenya</span><span><a href="https://github.com/PeterGikunju" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a> · <span id="year">2026</span></span></div>
+    <div class="wrap footer-row"><span><span class="footer-brand">Peter Gikunju</span> · Built in Meru, Kenya</span><span><a href="https://github.com/PeterGikunju" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a> · <a href="https://www.linkedin.com/in/gikunjucreates/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a> · <a href="https://www.credly.com/users/peter-ng-ang-a-gikunju/badges/credly" target="_blank" rel="noopener noreferrer">Credly <span aria-hidden="true">↗</span></a> · <span id="year">2026</span></span></div>
   </footer>
 
   <script>
@@ -577,6 +620,24 @@
     });
 
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    const loadRuiruPreview = document.getElementById('load-ruiru-preview');
+    const ruiruPreviewFrame = document.getElementById('ruiru-preview-frame');
+    loadRuiruPreview.addEventListener('click', () => {
+      let frame = ruiruPreviewFrame.querySelector('iframe');
+      if (!frame) {
+        frame = document.createElement('iframe');
+        frame.title = 'Live Ruiru Rentals property operations portal preview';
+        frame.loading = 'eager';
+        frame.referrerPolicy = 'strict-origin-when-cross-origin';
+        frame.setAttribute('sandbox', 'allow-scripts allow-forms allow-same-origin allow-popups');
+        ruiruPreviewFrame.append(frame);
+      }
+      frame.src = 'https://www.houseapprentals.co.ke/';
+      ruiruPreviewFrame.hidden = false;
+      loadRuiruPreview.setAttribute('aria-expanded', 'true');
+      loadRuiruPreview.textContent = 'Reload live preview';
+    });
   </script>
 </body>
 </html>
