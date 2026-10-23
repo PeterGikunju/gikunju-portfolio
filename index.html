@@ -200,9 +200,12 @@
     .project-art--wen { background: #ded9c7; color: #293329; }
     .project-art--ruiru { background: #344537; color: #f1efe4; }
     .project-art--admin { background: #c6c8b7; color: #293329; }
+    .project-art--kheja { background: #b7b9a7; color: #293329; }
     :root[data-theme="dark"] .project-art--wen { background: #373d31; color: #eeeade; }
     :root[data-theme="dark"] .project-art--ruiru { background: #293a2e; color: #eeeade; }
     :root[data-theme="dark"] .project-art--admin { background: #353d32; color: #eeeade; }
+    :root[data-theme="dark"] .project-art--kheja { background: #363d32; color: #eeeade; }
+    .project-art--kheja .project-art-title { letter-spacing: -.055em; }
     .project-art-copy { display: grid; gap: 15px; }
     .art-kicker { font-family: "Cascadia Code","SFMono-Regular",Consolas,monospace; font-size: .67rem; letter-spacing: .11em; text-transform: uppercase; }
     .project-art-title { font-family: Georgia,"Times New Roman",serif; font-size: clamp(1.9rem,3vw,2.8rem); font-weight: 500; line-height: .98; letter-spacing: -.045em; }
@@ -216,6 +219,8 @@
     .project-tags span:first-child { padding-left: 0; border-left: 0; }
     .project-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; color: var(--blue-dark); font-size: .82rem; font-weight: 750; text-decoration: none; }
     .project-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .project-link--button { min-height: 42px; padding: 0 13px; border: 1px solid var(--line); background: var(--surface); text-decoration: none; }
+    .project-link--button:hover { border-color: var(--blue); text-decoration: none; }
     .project-preview {
       grid-column: 1 / -1; padding: 20px clamp(24px,5vw,58px) 24px;
       border-top: 1px solid var(--line); background: var(--page);
@@ -270,6 +275,34 @@
     .demo-search { width: min(100%,240px); min-height: 34px; padding: 6px 9px; border: 1px solid var(--line); background: var(--page); color: var(--ink); font: inherit; font-size: .7rem; }
     .demo-note { margin: 12px 0 0; color: var(--muted); font-size: .66rem; }
     .demo-empty { padding: 22px 12px; color: var(--muted); text-align: center; font-size: .74rem; }
+    .kheja-demo { margin-top: 18px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+    .kheja-demo[hidden] { display: none; }
+    .kheja-demo-topbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--surface-soft); }
+    .kheja-demo-brand { display: flex; align-items: center; gap: 9px; font-size: .78rem; font-weight: 800; }
+    .kheja-demo-mark { display: grid; width: 28px; height: 28px; place-items: center; border: 1px solid var(--line); font-family: Georgia,serif; }
+    .kheja-demo-workspace { padding: 18px; }
+    .kheja-demo-heading { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+    .kheja-demo-heading h5 { margin: 0; font-size: 1.05rem; }
+    .kheja-demo-heading p { margin: 3px 0 0; color: var(--muted); font-size: .72rem; }
+    .kheja-demo-search { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .kheja-demo-search input, .kheja-demo-search select { min-height: 38px; padding: 7px 10px; border: 1px solid var(--line); background: var(--page); color: var(--ink); font: inherit; font-size: .72rem; }
+    .kheja-demo-search input { flex: 1 1 210px; }
+    .kheja-demo-search select { flex: 0 1 175px; }
+    .kheja-demo-count { margin: 0 0 10px; color: var(--muted); font-size: .68rem; }
+    .kheja-demo-listings { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+    .kheja-listing { min-width: 0; border: 1px solid var(--line); }
+    .kheja-listing-art { display: flex; min-height: 80px; align-items: end; justify-content: space-between; gap: 10px; padding: 11px; background: #e4e1d5; color: #30392f; }
+    :root[data-theme="dark"] .kheja-listing-art { background: #303a31; color: #eeeade; }
+    .kheja-listing-art span:first-child { font-size: .63rem; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
+    .kheja-listing-price { font-size: .72rem; font-weight: 800; white-space: nowrap; }
+    .kheja-listing-body { padding: 11px; }
+    .kheja-listing-body h6 { margin: 0; font-size: .78rem; }
+    .kheja-listing-body p { min-height: 2.8em; margin: 5px 0 9px; color: var(--muted); font-size: .68rem; line-height: 1.5; }
+    .kheja-listing-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 9px; border-top: 1px solid var(--line); }
+    .kheja-listing-rooms { color: var(--muted); font-size: .65rem; }
+    .kheja-save { padding: 5px 8px; border: 1px solid var(--line); background: transparent; color: var(--ink); font-size: .65rem; font-weight: 700; cursor: pointer; }
+    .kheja-save:hover, .kheja-save[aria-pressed="true"] { border-color: var(--blue); color: var(--blue-dark); }
+    .kheja-demo-empty { grid-column: 1 / -1; padding: 22px 12px; border: 1px solid var(--line); color: var(--muted); text-align: center; font-size: .74rem; }
     .preview-note { margin: 10px 0 0; color: var(--muted); font-size: .72rem; }
     .project-case-study {
       grid-column: 1 / -1; display: grid; grid-template-columns: minmax(190px,.7fr) minmax(0,1.3fr);
@@ -375,6 +408,9 @@
       .demo-nav button { padding: 8px 5px; text-align: center; font-size: .66rem; }
       .demo-main { padding: 14px; }
       .demo-summary { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .kheja-demo-workspace { padding: 14px; }
+      .kheja-demo-listings { grid-template-columns: 1fr; }
+      .kheja-demo-search select { flex: 1 1 130px; }
       .project-case-study { padding: 23px; }
       .case-study-map { grid-template-columns: repeat(2,minmax(0,1fr)); }
       .case-study-map > div:nth-child(3) { padding-left: 0; border-left: 0; }
@@ -478,22 +514,68 @@
     <section class="section work-section" id="work" aria-labelledby="work-title">
       <div class="wrap">
         <div class="section-head">
-          <div><p class="eyebrow"><span class="eyebrow-dot"></span> 02 &nbsp; / &nbsp; Selected work</p><h2 id="work-title">A shopfront, a rental desk, a phone app.</h2></div>
-          <p class="section-copy">These projects grew from day-to-day operations: product orders, rent records, receipts, and the admin work that keeps a shop moving.</p>
+          <div><p class="eyebrow"><span class="eyebrow-dot"></span> 02 &nbsp; / &nbsp; Selected work</p><h2 id="work-title">Shops, homes, and the systems behind them.</h2></div>
+          <p class="section-copy">Selected work across online retail, housing discovery, property operations, and mobile administration.</p>
         </div>
         <div class="work-grid">
           <article class="project-card">
-            <div class="project-art project-art--wen" aria-hidden="true"><div class="project-art-copy"><span class="art-kicker">Online retail</span><span class="project-art-title">Wen<br>Appliances</span></div><span class="project-art-index">01</span></div>
+            <div class="project-art project-art--kheja" aria-hidden="true"><div class="project-art-copy"><span class="art-kicker">Housing discovery</span><span class="project-art-title">Kheja<br>Link</span></div><span class="project-art-index">01</span></div>
             <div class="project-content">
-              <div class="project-overline"><span>Commerce platform</span><span>Live</span></div><h3>Wen Appliances</h3>
-              <p>A multi-page appliance marketplace with an admin portal, customer support chat, and direct WhatsApp integration.</p>
-              <div class="project-tags"><span>React</span><span>Supabase</span><span>Production</span></div>
-              <a class="project-link" href="https://wenappliances.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Visit the Wen Appliances website (opens in a new tab)">Visit live site <span aria-hidden="true">↗</span></a>
+              <div class="project-overline"><span>Rental marketplace</span><span>Live</span></div><h3>Kheja_Link</h3>
+              <p>A long-term rental discovery platform for Meru, Kenya. As a backend developer, I work on listing and inquiry workflows, authentication, and Supabase data access controls across the web and mobile product.</p>
+              <div class="project-tags"><span>Next.js</span><span>Supabase</span><span>Backend</span></div>
+              <a class="project-link" href="https://www.khejalink.name.ng/" target="_blank" rel="noopener noreferrer" aria-label="Visit the Kheja Link website (opens in a new tab)">Visit live site <span aria-hidden="true">↗</span></a>
+            </div>
+            <div class="project-preview" aria-labelledby="kheja-preview-title">
+              <div class="project-preview-head">
+                <div>
+                  <h4 class="project-preview-title" id="kheja-preview-title">Preview the rental search</h4>
+                  <p class="project-preview-copy">Try a small listings sample. Every home and price here is fictional.</p>
+                </div>
+                <div class="project-preview-actions">
+                  <button class="preview-button" id="toggle-kheja-demo" type="button" aria-controls="kheja-demo" aria-expanded="false">Open listings preview</button>
+                  <a class="preview-open-link" href="https://www.khejalink.name.ng/" target="_blank" rel="noopener noreferrer">Visit live site <span aria-hidden="true">↗</span></a>
+                </div>
+              </div>
+              <div class="kheja-demo" id="kheja-demo" hidden>
+                <div class="kheja-demo-topbar">
+                  <div class="kheja-demo-brand"><span class="kheja-demo-mark" aria-hidden="true">K</span><span>Kheja Link <span class="project-preview-copy">/ sample listings</span></span></div>
+                  <span class="demo-sample-label">FICTIONAL HOMES</span>
+                </div>
+                <div class="kheja-demo-workspace">
+                  <div class="kheja-demo-heading">
+                    <div><h5>Find a place in Meru</h5><p>Browse and save a few example rentals.</p></div>
+                  </div>
+                  <div class="kheja-demo-search">
+                    <input id="kheja-demo-search" type="search" placeholder="Search home type or area" aria-label="Search sample rental listings">
+                    <select id="kheja-demo-type" aria-label="Filter sample listings by home type">
+                      <option value="all">All home types</option>
+                      <option value="Single room">Single room</option>
+                      <option value="Bedsitter">Bedsitter</option>
+                      <option value="1 bedroom">1 bedroom</option>
+                      <option value="2 bedroom">2 bedroom</option>
+                    </select>
+                  </div>
+                  <p class="kheja-demo-count" id="kheja-demo-count" aria-live="polite"></p>
+                  <div class="kheja-demo-listings" id="kheja-demo-listings" aria-live="polite"></div>
+                </div>
+              </div>
+              <p class="preview-note">This is a portfolio sample, not connected to Kheja Link. Search and saved homes use fictional data in this page only; reloading resets them.</p>
             </div>
           </article>
 
           <article class="project-card">
-            <div class="project-art project-art--ruiru" aria-hidden="true"><div class="project-art-copy"><span class="art-kicker">Property operations</span><span class="project-art-title">Ruiru<br>Rentals</span></div><span class="project-art-index">02</span></div>
+            <div class="project-art project-art--wen" aria-hidden="true"><div class="project-art-copy"><span class="art-kicker">Online retail</span><span class="project-art-title">Wen<br>Appliances</span></div><span class="project-art-index">02</span></div>
+            <div class="project-content">
+              <div class="project-overline"><span>Commerce platform</span><span>Live</span></div><h3>Wen Appliances</h3>
+              <p>A multi-page appliance marketplace with an admin portal, customer support chat, and direct WhatsApp integration.</p>
+              <div class="project-tags"><span>React</span><span>Supabase</span><span>Production</span></div>
+              <a class="project-link project-link--button" href="https://wenappliances.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Open the Wen Appliances website in a new tab">Open Wen Appliances <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-art project-art--ruiru" aria-hidden="true"><div class="project-art-copy"><span class="art-kicker">Property operations</span><span class="project-art-title">Ruiru<br>Rentals</span></div><span class="project-art-index">03</span></div>
             <div class="project-content">
               <div class="project-overline"><span>Property management</span><span>Live</span></div><h3>Ruiru Rentals Portal</h3>
               <p>A property management portal for rent and utility billing, receipt generation, maintenance tracking, and separate manager and landlord access.</p>
@@ -562,7 +644,7 @@
           </article>
 
           <article class="project-card">
-            <div class="project-art project-art--admin" aria-hidden="true"><div class="project-art-copy"><span class="art-kicker">Android companion</span><span class="project-art-title">Admin<br>Wen</span></div><span class="project-art-index">03</span></div>
+            <div class="project-art project-art--admin" aria-hidden="true"><div class="project-art-copy"><span class="art-kicker">Android companion</span><span class="project-art-title">Admin<br>Wen</span></div><span class="project-art-index">04</span></div>
             <div class="project-content">
               <div class="project-overline"><span>Mobile application</span><span>Android</span></div><h3>Admin Wen</h3>
               <p>A companion Android app built to handle marketplace administration, packaged and signed for Android deployment.</p>
@@ -595,6 +677,10 @@
           <p class="section-copy">Building products, supporting people, and learning through hands-on work.</p>
         </div>
         <div class="timeline">
+          <article class="role">
+            <div class="role-date">15 Oct 2026 — Present</div>
+            <div class="role-card"><div class="role-title"><h3>Backend Developer</h3><span class="role-company">Kheja_Link</span></div><p>Contribute to backend features for a long-term rental discovery platform, including property listing and inquiry workflows, authentication, and Supabase data access controls.</p></div>
+          </article>
           <article class="role">
             <div class="role-date">Jun 2026 — Present</div>
             <div class="role-card"><div class="role-title"><h3>Property Manager &amp; Developer</h3><span class="role-company">Ruiru Rentals</span></div><p>Manage rental operations and billing while developing a portal for receipts, utility tracking, and maintenance requests with manager and landlord access.</p></div>
@@ -815,6 +901,57 @@
       }
       updateDemoSummary();
       renderDemoContent();
+    });
+
+    const toggleKhejaDemo = document.getElementById('toggle-kheja-demo');
+    const khejaDemo = document.getElementById('kheja-demo');
+    const khejaSearch = document.getElementById('kheja-demo-search');
+    const khejaType = document.getElementById('kheja-demo-type');
+    const khejaListings = document.getElementById('kheja-demo-listings');
+    const khejaCount = document.getElementById('kheja-demo-count');
+    const khejaHomes = [
+      { type: 'Bedsitter', area: 'Kaaga', rent: 8500, rooms: 'Self-contained', detail: 'A compact example rental near local shops.', saved: false },
+      { type: '1 bedroom', area: 'Kinoru', rent: 15500, rooms: '1 bed · 1 bath', detail: 'A sample apartment with a separate sitting room.', saved: false },
+      { type: '2 bedroom', area: 'Milimani', rent: 26000, rooms: '2 beds · parking', detail: 'A fictional family home with a shared courtyard.', saved: false },
+      { type: 'Single room', area: 'Town Centre', rent: 6000, rooms: 'Shared facilities', detail: 'An example room close to the town centre.', saved: false }
+    ];
+    const khejaMoney = (amount) => `KES ${new Intl.NumberFormat('en-KE').format(amount)} / month`;
+
+    function renderKhejaListings() {
+      const query = khejaSearch.value.trim().toLowerCase();
+      const selectedType = khejaType.value;
+      const visibleHomes = khejaHomes.map((home, index) => ({ home, index }))
+        .filter(({ home }) => (selectedType === 'all' || home.type === selectedType)
+          && `${home.type} ${home.area} ${home.rooms} ${home.detail}`.toLowerCase().includes(query));
+      const savedCount = khejaHomes.filter((home) => home.saved).length;
+      khejaCount.textContent = `${visibleHomes.length} sample rental${visibleHomes.length === 1 ? '' : 's'} · ${savedCount} saved on this page`;
+      khejaListings.innerHTML = visibleHomes.length ? visibleHomes.map(({ home, index }) => `
+        <article class="kheja-listing">
+          <div class="kheja-listing-art"><span>${home.type} · ${home.area}</span><span class="kheja-listing-price">${khejaMoney(home.rent)}</span></div>
+          <div class="kheja-listing-body">
+            <h6>${home.type} in ${home.area}</h6>
+            <p>${home.detail}</p>
+            <div class="kheja-listing-foot"><span class="kheja-listing-rooms">${home.rooms}</span><button class="kheja-save" type="button" data-kheja-save="${index}" aria-pressed="${home.saved}">${home.saved ? 'Saved' : 'Save home'}</button></div>
+          </div>
+        </article>`).join('') : '<p class="kheja-demo-empty">No fictional rentals match those filters.</p>';
+    }
+
+    toggleKhejaDemo.addEventListener('click', () => {
+      const isOpening = khejaDemo.hidden;
+      khejaDemo.hidden = !isOpening;
+      toggleKhejaDemo.setAttribute('aria-expanded', String(isOpening));
+      toggleKhejaDemo.textContent = isOpening ? 'Close listings preview' : 'Open listings preview';
+      if (isOpening) renderKhejaListings();
+    });
+    khejaSearch.addEventListener('input', renderKhejaListings);
+    khejaType.addEventListener('change', renderKhejaListings);
+    khejaListings.addEventListener('click', (event) => {
+      const saveButton = event.target.closest('[data-kheja-save]');
+      if (!saveButton) return;
+      const index = Number(saveButton.dataset.khejaSave);
+      khejaHomes[index].saved = !khejaHomes[index].saved;
+      renderKhejaListings();
+      khejaListings.querySelector(`[data-kheja-save="${index}"]`)?.focus();
     });
   </script>
 </body>
